@@ -1,0 +1,27 @@
+{
+  "authors" : [
+    "Alexey Melezhik"
+  ],
+  "build-depends" : [ ],
+  "depends" : [
+    "Tomtit"
+  ],
+  "description" : "Tomty - Simple Tomtit Based Test Runner",
+  "license" : "Artistic-2.0",
+  "name" : "Tomty",
+  "perl" : "6.*",
+  "provides" : {
+    "Tomty" : "lib/Tomty.pm6"
+  },
+  "resources" : [
+  ],
+  "source-type" : "git",
+  "source-url" : "https://github.com/melezhik/Tomty",
+  "support" : {
+    "bugtracker" : "https://github.com/melezhik/Tomty/issues",
+    "source" : "https://github.com/melezhik/Tomty.git"
+  },
+  "tags" : [ ],
+  "test-depends" : [ ],
+  "version" : "0.0.1"
+}

@@ -1,14 +1,12 @@
 # Tomty
 
-Simple [Tomtit](https://github.com/melezhik/Tomtit) based test runner
+Simple [Tomtit](https://github.com/melezhik/Tomtit) Based Test Runner.
 
 # Install
 
     zef install Tomty
 
-
 # Usage
-
 
     tom --edit test-one
 
@@ -17,7 +15,6 @@ Simple [Tomtit](https://github.com/melezhik/Tomtit) based test runner
     tom --edit test-two
 
     bash "echo Upps && exit 1";
-
 
     tomty # Runs all test-* scenarios and make report
 

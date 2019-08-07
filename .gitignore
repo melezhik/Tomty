@@ -1,1 +1,7 @@
+lib/.precomp/
+.precomp
+*.tar.gz
+Tomty-*
 .cache
+log.txt
+

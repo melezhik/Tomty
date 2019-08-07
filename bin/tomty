@@ -1,0 +1,15 @@
+#!perl6
+
+use Sparrow6::Task::Repository;
+use Sparrow6::Task;
+
+sub MAIN (
+)
+
+{
+
+  say "Hello from Tomty"
+
+}
+
+
