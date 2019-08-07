@@ -1,15 +1,42 @@
 #!perl6
 
-use Sparrow6::Task::Repository;
-use Sparrow6::Task;
+use Tomtit;
 
 sub MAIN (
 )
 
 {
 
-  say "Hello from Tomty"
+my $success-cnt = 0;
+my $failures-cnt = 0;
 
+CATCH {
+
+  default {
+    $failures-cnt++;
+    .resume;
+  }
+
+}
+
+
+  for scenario-list("{$*CWD}/.tom").grep({ $_ ~~ /^^ 'test-' \S / }) -> $s {
+
+    say "[$s] ....... ";
+
+    shell "tom $s";
+
+    $success-cnt++;
+
+  }
+
+  say "=========================================";
+
+  if $failures-cnt >= 1 {
+    say ")=: ($success-cnt) tests passed / ($failures-cnt) failed"
+  } else {
+    say "(=: ($success-cnt) tests passed"
+  }
 }
 
 
