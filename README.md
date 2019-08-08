@@ -60,7 +60,7 @@ You can write more advanced tests, for example:
 
     #!perl6
 
-    http-ok("http://perl6.org")
+    http-ok("http://perl6.org");
 
     # Check if META6.json file is a valid json
 
