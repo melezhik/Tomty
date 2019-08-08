@@ -75,12 +75,15 @@ writing your tests.
 
 ## Running tests
 
-* To run all test just say `tomty`, it will find all the scenarios matching `test-*` pattern
-and run them in sequence.
+* To run all test just say `tomty`
 
-* To run single test just say `tom $test`, for example:
+It will find all the scenarios matching `test-*` pattern and run them in sequence.
 
-  tom test-meta6-is-valid-json
+* To run single test just say `tom $test`
+
+For example:
+
+    tom test-meta6-is-valid-json
 
 # See also
 
