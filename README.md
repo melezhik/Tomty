@@ -85,6 +85,12 @@ For example:
 
     tom test-meta6-is-valid-json
 
+## Examing tests
+
+To list all the tests just say `tom --list|grep test`
+
+This command will list all `test-*` scenarios.
+
 # See also
 
 * [Sparrow6](https://github.com/melezhik/Sparrow6)
