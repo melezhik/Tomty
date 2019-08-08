@@ -8,35 +8,28 @@ Simple [Tomtit](https://github.com/melezhik/Tomtit) Based Test Runner.
 
 # Usage
 
-    tom --edit test-one
+    tom --edit test-01
 
     bash "echo Hello World"
 
-    tom --edit test-two
+    tom --edit test-02
 
     bash "echo Upps && exit 1";
 
-    tomty # Runs all test-* scenarios and make report
+    tom --edit test-03
 
-# Report example
+    bash "echo Hello Again!";
 
-This is a subject to change
+    tomty -q # Runs all test-* scenarios and make reports
 
-    $ tomty
-
-    [test-01] .......
-    22:37:14 08/07/2019 [repository] index updated from file:///home/scheck/repo/api/v1/index
-    22:37:16 08/07/2019 [bash: echo Hello World] Hello World
-    [test-02] .......
-    22:37:17 08/07/2019 [repository] index updated from file:///home/scheck/repo/api/v1/index
-    22:37:19 08/07/2019 [bash: echo Upps && exit 1] Upps
-    22:37:19 08/07/2019 [bash: echo Upps && exit 1] task exit status: 1
-    22:37:19 08/07/2019 [bash: echo Upps && exit 1] task bash: echo Upps && exit 1 FAILED
-    [test-03] .......
-    22:37:19 08/07/2019 [repository] index updated from file:///home/scheck/repo/api/v1/index
-    22:37:21 08/07/2019 [bash: echo Hello Again] Hello Again
+    [test-01] .......  3 sec. OK
+    [test-02] .......  3 sec. FAIL
+    [test-03] .......  3 sec. OK
+    [test-meta6-file-exist] .......  2 sec. OK
+    [test-meta6-is-valid-json] .......  2 sec. OK
     =========================================
-    )=: (2) tests passed / (1) failed
+    )=: (4) tests passed / (1) failed
+
 
 #  Guide
 

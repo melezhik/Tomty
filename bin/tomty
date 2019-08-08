@@ -49,6 +49,7 @@ my $q-mode = $q || $quiet;
       my $proc = Proc::Async.new("tom",$s);
 
       my $fh = open "$reports-dir/$s.log", :w;
+      my $start;
 
       react {
   
@@ -67,6 +68,7 @@ my $q-mode = $q || $quiet;
           }
   
           whenever $proc.ready {
+              $start = time;
               #say ‘PID: ’, $_ # Only in Rakudo 2018.04 and newer, otherwise Nil
           }
   
@@ -80,9 +82,9 @@ my $q-mode = $q || $quiet;
 
               if $exit-code != 0 {
                 $failures-cnt++;
-                print " FAIL\n" if $q-mode;
+                print " {time - $start} sec. FAIL\n" if $q-mode;
               } else {
-                print " OK\n" if $q-mode;
+                print " {time - $start} sec. OK\n" if $q-mode;
               }
   
               $fh.close;
