@@ -91,6 +91,24 @@ To list all the tests just say `tom --list|grep test`
 
 This command will list all `test-*` scenarios.
 
+# Tomtu cli
+
+## Options
+
+* `-q`, `--quiet`
+
+Runs tests in quiet mode, only statuses are shown
+
+
+* `--log`
+
+Get log for given test, useful when running in quiet mode:
+
+
+    tomty -q
+    tomty --log test-01
+
+
 # See also
 
 * [Sparrow6](https://github.com/melezhik/Sparrow6)

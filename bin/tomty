@@ -3,12 +3,22 @@
 use Tomtit;
 
 sub MAIN (
+
+  $thing?,
+  Bool :$log        = False,
+  Bool :$quiet      = False,
+  Bool :$q          = False, # alias for $quiet
+
 )
 
 {
 
 my $tests-cnt = 0;
 my $failures-cnt = 0;
+
+my $reports-dir = "{%*ENV<HOME>}/.tomty/reports";
+mkdir "{%*ENV<HOME>}/.tomty";
+mkdir $reports-dir;
 
 CATCH {
 
@@ -19,23 +29,42 @@ CATCH {
 
 }
 
+  if $thing && $log {
 
-  for scenario-list("{$*CWD}/.tom").grep({ $_ ~~ /^^ 'test-' \S / }) -> $s {
+    if "$reports-dir/$thing.log".IO ~~ :e {
+      say slurp "$reports-dir/$thing.log"
+    } else {
+      say "no log for <$thing> found"
+    }
 
-    say "[$s] ....... ";
-
-    shell "tom $s";
-
-    $tests-cnt++;
-
-  }
-
-  say "=========================================";
-
-  if $failures-cnt >= 1 {
-    say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
   } else {
-    say "(=: ($tests-cnt) tests passed"
+
+    for scenario-list("{$*CWD}/.tom").grep({ $_ ~~ /^^ 'test-' \S / }) -> $s {
+  
+      say "[$s] ....... ";
+  
+      if $q or $quiet {
+  
+        shell "tom $s 2>&1 1>$reports-dir/$s.log";
+  
+      } else {
+  
+        shell "tom $s";
+  
+      }
+  
+      $tests-cnt++;
+  
+    }
+  
+    say "=========================================";
+  
+    if $failures-cnt >= 1 {
+      say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
+    } else {
+      say "(=: ($tests-cnt) tests passed"
+    }
+  
   }
 }
 
