@@ -25,10 +25,8 @@ Simple [Tomtit](https://github.com/melezhik/Tomtit) Based Test Runner.
     [test-01] .......  3 sec. OK
     [test-02] .......  3 sec. FAIL
     [test-03] .......  3 sec. OK
-    [test-meta6-file-exist] .......  2 sec. OK
-    [test-meta6-is-valid-json] .......  2 sec. OK
     =========================================
-    )=: (4) tests passed / (1) failed
+    )=: (2) tests passed / (1) failed
 
 
 #  Guide
