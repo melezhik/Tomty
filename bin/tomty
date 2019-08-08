@@ -20,14 +20,7 @@ my $reports-dir = "{%*ENV<HOME>}/.tomty/reports";
 mkdir "{%*ENV<HOME>}/.tomty";
 mkdir $reports-dir;
 
-CATCH {
-
-  default {
-    $failures-cnt++;
-    .resume;
-  }
-
-}
+my $q-mode = $q || $quiet;
 
   if $thing && $log {
 
@@ -41,19 +34,64 @@ CATCH {
 
     for scenario-list("{$*CWD}/.tom").grep({ $_ ~~ /^^ 'test-' \S / }) -> $s {
   
-      say "[$s] ....... ";
-  
-      if $q or $quiet {
-  
-        shell "tom $s 2>&1 1>$reports-dir/$s.log";
+
+      if $q-mode {
+
+        print "[$s] ....... ";
   
       } else {
+
+        say "[$s] ....... ";
+
+      }
+
+
+      my $proc = Proc::Async.new("tom",$s);
+
+      my $fh = open "$reports-dir/$s.log", :w;
+
+      react {
   
-        shell "tom $s";
+          whenever $proc.stdout.lines { # split input on \r\n, \n, and \r
+  
+            $fh.say($_);
+
+            say $_ unless $q-mode;
+  
+          }
+  
+          whenever $proc.stderr { # chunks
+  
+            say $_ unless $q-mode;
+  
+          }
+  
+          whenever $proc.ready {
+              #say ‘PID: ’, $_ # Only in Rakudo 2018.04 and newer, otherwise Nil
+          }
+  
+          whenever $proc.start {
+  
+              #say ‘Proc finished: exitcode=’, .exitcode, ‘ signal=’, .signal;
+  
+              my $exit-code = .exitcode;
+
+              $tests-cnt++;
+
+              if $exit-code != 0 {
+                $failures-cnt++;
+                print " FAIL\n" if $q-mode;
+              } else {
+                print " OK\n" if $q-mode;
+              }
+  
+              $fh.close;
+
+              done # gracefully jump from the react block
+  
+         }
   
       }
-  
-      $tests-cnt++;
   
     }
   
