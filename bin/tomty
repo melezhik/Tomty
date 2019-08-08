@@ -7,7 +7,7 @@ sub MAIN (
 
 {
 
-my $success-cnt = 0;
+my $tests-cnt = 0;
 my $failures-cnt = 0;
 
 CATCH {
@@ -26,16 +26,16 @@ CATCH {
 
     shell "tom $s";
 
-    $success-cnt++;
+    $tests-cnt++;
 
   }
 
   say "=========================================";
 
   if $failures-cnt >= 1 {
-    say ")=: ($success-cnt) tests passed / ($failures-cnt) failed"
+    say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
   } else {
-    say "(=: ($success-cnt) tests passed"
+    say "(=: ($tests-cnt) tests passed"
   }
 }
 
