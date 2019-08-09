@@ -20,7 +20,7 @@ Tomty - Simple Perl6 Test Runner.
 
     bash "echo Hello Again!";
 
-    tomty --run -q # Runs all test-* scenarios and make reports
+    tomty --run -q # Run all tests and make reports
 
     [1] / [test-01] .......  2 sec. OK
     [2] / [test-02] .......  3 sec. FAIL
@@ -38,8 +38,7 @@ Tomty - Simple Perl6 Test Runner.
 
 ## Writing test
 
-Tomty test is just a Sparrow6 scenario, named as `test-*`:
-
+Tomty test is just a Sparrow6 scenario:
 
     tomty --edit test-meta6-file-exist
 
@@ -73,7 +72,7 @@ writing your tests.
 
 * To run all test just say `tomty --run`
 
-It will find all the scenarios matching `test-*` pattern and run them in sequence.
+It will find all the tests and run them in sequence.
 
 * To run single test just say `tomty --run $test`
 
@@ -85,7 +84,7 @@ For example:
 
 To list all the tests just say `tomty --list`
 
-This command will list all test scenarios.
+This command will list all tests.
 
 # Tomty cli
 
