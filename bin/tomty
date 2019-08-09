@@ -8,7 +8,7 @@ sub MAIN (
   Bool :$verbose    = False, 
   Bool :$quiet      = False,
   Bool :$q          = False, # alias for $quiet 
-  Bool :$run        = False,
+  Bool :$all        = False,
   Bool :$log        = False,
   Bool :$completion = False, 
   Bool :$clean      = False, 
@@ -84,11 +84,11 @@ sub MAIN (
 
     test-log($thing);
 
-  } elsif ($run && $thing ) {
+  } elsif (!$all && $thing ) {
 
     test-run("{$*CWD}/.tomty", $thing );
 
-  } elsif ($run) {
+  } elsif ($all) {
 
     test-run-all("{$*CWD}/.tomty", %( q-mode => $q-mode ));
 

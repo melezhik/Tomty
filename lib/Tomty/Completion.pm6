@@ -42,7 +42,7 @@ sub complete () is export {
 
   # tests
 
-  if $prev-word eq 'tomty' and $current-word ~~ /^ '--cat' | '--edit' | '--remove' | '--run' /  {
+  if $prev-word eq 'tomty' and $current-word ~~ /^ '--cat' | '--edit' | '--remove'  /  {
 
     my $list = test-list("{$*CWD}/.tomty",2);
 
@@ -52,7 +52,7 @@ sub complete () is export {
 
   }
 
-  if $prev-word ~~ /^ '--cat' | '--edit' | '--remove' | '--run' / or $current-word ~~ /^ '--cat' | '--edit'  | '--remove' | '--run' / {
+  if $prev-word ~~ /^ '--cat' | '--edit' | '--remove'  / or $current-word ~~ /^ '--cat' | '--edit'  | '--remove'  / {
 
     my $list = test-list("{$*CWD}/.tomty");
 
@@ -124,7 +124,7 @@ sub complete () is export {
 
 sub options-list {
 
-  my $list =  "--quiet -q --completion --clean --help --log --list --run --remove --cat --lines --edit --env-cat --env-set --env-edit --env-list";
+  my $list =  "--quiet -q --completion --clean --help --log --list --all --remove --cat --lines --edit --env-cat --env-set --env-edit --env-list";
 
     if %*ENV<TOMTY_COMPLETE_DEBUG> {
 

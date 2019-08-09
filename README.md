@@ -20,7 +20,7 @@ Tomty - Simple Perl6 Test Runner.
 
     bash "echo Hello Again!";
 
-    tomty --run -q # Run all tests and make reports
+    tomty --all -q # Run all tests and make reports
 
     [1] / [test-01] .......  2 sec. OK
     [2] / [test-02] .......  3 sec. FAIL
@@ -70,15 +70,15 @@ writing your tests.
 
 ## Running tests
 
-* To run all test just say `tomty --run`
+* To run all test just say `tomty --all`
 
 It will find all the tests and run them in sequence.
 
-* To run single test just say `tomty --run $test`
+* To run single test just say `tomty $test`
 
 For example:
 
-    tomty --run test-meta6-is-valid-json
+    tomty test-meta6-is-valid-json
 
 ## Examing tests
 
@@ -103,7 +103,7 @@ Get log for given test run, useful when running in quiet mode:
 
 
     tomty -q
-    tomty --log 03
+    tomty --log test-01
 
 
 # See also

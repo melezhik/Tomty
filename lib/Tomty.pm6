@@ -44,11 +44,11 @@ sub tomty-help () is export  {
   usage:
     tomty $options $thing
 
-  run tests:
-    tomty
+  run all tests:
+    tomty --all
 
   run tests in quiet mode:
-    tomty
+    tomty -q
 
   run test:
     tomty $test
@@ -59,8 +59,8 @@ sub tomty-help () is export  {
   print out test:
     tomty --cat $test
 
-  print out test log:
-    tomty --log $number
+  print out test report:
+    tomty --log $test
 
   set default ennvironment
     tomty --env-set $env
@@ -108,7 +108,7 @@ sub test-run ($dir,$test,%args?) is export {
 
   } elsif ( "$dir/env/config.pl6".IO ~~ :e ) {
 
-    $conf-file = "$dir/env/config.pl6"    
+    $conf-file = "$dir/env/config.pl6"
 
   }
 
@@ -148,9 +148,9 @@ sub test-run-all ($dir,%args) is export {
     }
 
 
-    my $proc = %args<env> ?? Proc::Async.new("tomty","--env", %args<env>,"--run",$s) !! Proc::Async.new("tomty","--run",$s);
+    my $proc = %args<env> ?? Proc::Async.new("tomty","--env", %args<env>,$s) !! Proc::Async.new("tomty",$s);
 
-    my $fh = open "{reports-dir()}/$i.log", :w;
+    my $fh = open "{reports-dir()}/$s.log", :w;
 
     my $start;
 
@@ -210,12 +210,12 @@ sub test-run-all ($dir,%args) is export {
 
 }
 
-sub test-log ($number) is export {
+sub test-log ($test) is export {
 
-    if "{reports-dir()}/$number.log".IO ~~ :e {
-      say slurp "{reports-dir()}/$number.log"
+    if "{reports-dir()}/$test.log".IO ~~ :e {
+      say slurp "{reports-dir()}/$test.log"
     } else {
-      say "no log for test number <$number> found"
+      say "no log for test <$test> found"
     }
 
 }
