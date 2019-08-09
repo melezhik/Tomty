@@ -22,11 +22,12 @@ Tomty - Simple Perl6 Test Runner.
 
     tomty --run -q # Runs all test-* scenarios and make reports
 
-    [test-01] .......  3 sec. OK
-    [test-02] .......  3 sec. FAIL
-    [test-03] .......  3 sec. OK
+    [1] / [test-01] .......  2 sec. OK
+    [2] / [test-02] .......  3 sec. FAIL
+    [3] / [test-03] .......  3 sec. OK
     =========================================
     )=: (2) tests passed / (1) failed
+    
 
 
     echo ".cache" >> .gitignore

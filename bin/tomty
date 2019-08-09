@@ -80,6 +80,10 @@ sub MAIN (
 
     environment-show("{$*CWD}/.tomty/env");
 
+  } elsif ($log && $thing ) {
+
+    test-log($thing);
+
   } elsif ($run && $thing ) {
 
     test-run("{$*CWD}/.tomty", $thing );

@@ -135,6 +135,8 @@ sub test-run-all ($dir,%args) is export {
 
   for test-list($dir) -> $s {
 
+    $i++;
+
     if $q-mode {
 
       print "[$i] / [$s] ....... ";
@@ -147,8 +149,6 @@ sub test-run-all ($dir,%args) is export {
 
 
     my $proc = %args<env> ?? Proc::Async.new("tomty","--env", %args<env>,"--run",$s) !! Proc::Async.new("tomty","--run",$s);
-
-    $i++;
 
     my $fh = open "{reports-dir()}/$i.log", :w;
 

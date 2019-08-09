@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-tomty_completion()
+tomty_completions()
 {
   
   cur_word="${COMP_WORDS[COMP_CWORD]:-UNKNOWN}"
@@ -11,11 +11,11 @@ tomty_completion()
 
 
 
-  if test "${type}" = "scenario_list2"; then
+  if test "${type}" = "test_list2"; then
     COMPREPLY=( $( compgen -W "${list}"))
   fi
 
-  if test "${type}" = "scenario_list"; then
+  if test "${type}" = "test_list"; then
     COMPREPLY=( $( compgen -W "${list}" -- ${COMP_WORDS[COMP_CWORD]}  ))
   fi
 
