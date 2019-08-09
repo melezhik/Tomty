@@ -1,111 +1,99 @@
 #!perl6
 
-use Tomtit;
+use Tomty;
 
 sub MAIN (
 
   $thing?,
-  Bool :$log        = False,
+  Bool :$verbose    = False, 
   Bool :$quiet      = False,
-  Bool :$q          = False, # alias for $quiet
+  Bool :$q          = False, # alias for $quiet 
+  Bool :$run        = False,
+  Bool :$log        = False,
+  Bool :$completion = False, 
+  Bool :$clean      = False, 
+  Bool :$help       = False, 
+  Bool :$list       = False, 
+  Bool :$remove     = False, 
+  Bool :$cat        = False, 
+  Bool :$lines      = False, 
+  Bool :$edit       = False, 
+  Bool :$env-set    = False, 
+  Bool :$env-edit   = False, 
+  Bool :$env-list   = False, 
+  Bool :$env-cat    = False, 
+  Str  :$env 
 
 )
 
 {
 
-my $tests-cnt = 0;
-my $failures-cnt = 0;
+  my %config = init();
+  
+  my $q-mode  = $q || $quiet || %config<options><quiet>;
 
-my $reports-dir = "{%*ENV<HOME>}/.tomty/reports";
-mkdir "{%*ENV<HOME>}/.tomty";
-mkdir $reports-dir;
+  if ($completion) { # install completion
 
-my $q-mode = $q || $quiet;
+    completion-install();
 
-  if $thing && $log {
+  } elsif ($cat && $thing) { # cat test
 
-    if "$reports-dir/$thing.log".IO ~~ :e {
-      say slurp "$reports-dir/$thing.log"
-    } else {
-      say "no log for <$thing> found"
-    }
+    test-cat("{$*CWD}/.tomty", $thing, %( lines => $lines ));
+
+  } elsif ($list) { # tests list
+
+    test-list-print("{$*CWD}/.tomty")
+
+  } elsif ($help) { # help page
+
+    tomty-help();
+
+  } elsif ($clean) { # clean cache
+
+    tomty-clean("{$*CWD}/.tomty");
+
+  } elsif ($thing && $remove) { # remove test
+
+    test-remove("{$*CWD}/.tomty",$thing );
+
+  } elsif ($edit && $thing) { # edir test
+
+    test-edit("{$*CWD}/.tomty",$thing );
+
+  } elsif ($env-edit && $thing) { # edit env
+
+    environment-edit("{$*CWD}/.tomty/env",$thing );
+
+  } elsif ($env-cat && $thing) { # cat env
+
+    environment-cat("{$*CWD}/.tomty/env", $thing, %( lines => $lines ));
+
+  } elsif ($env-list) { # env list
+
+    environment-list("{$*CWD}/.tomty/env");
+
+  } elsif ($env-set && $thing) { # activate env
+
+    environment-set("{$*CWD}/.tomty/env", $thing);
+
+  } elsif ($env-set && !$thing) { # print activated env
+
+    environment-show("{$*CWD}/.tomty/env");
+
+  } elsif ($run && $thing ) {
+
+    test-run("{$*CWD}/.tomty", $thing );
+
+  } elsif ($run) {
+
+    test-run-all("{$*CWD}/.tomty", %( q-mode => $q-mode ));
 
   } else {
 
-    for scenario-list("{$*CWD}/.tom").grep({ $_ ~~ /^^ 'test-' \S / }) -> $s {
-  
+    test-list-print("{$*CWD}/.tomty")
 
-      if $q-mode {
-
-        print "[$s] ....... ";
-  
-      } else {
-
-        say "[$s] ....... ";
-
-      }
-
-
-      my $proc = Proc::Async.new("tom",$s);
-
-      my $fh = open "$reports-dir/$s.log", :w;
-      my $start;
-
-      react {
-  
-          whenever $proc.stdout.lines { # split input on \r\n, \n, and \r
-  
-            $fh.say($_);
-
-            say $_ unless $q-mode;
-  
-          }
-  
-          whenever $proc.stderr { # chunks
-  
-            say $_ unless $q-mode;
-  
-          }
-  
-          whenever $proc.ready {
-              $start = time;
-              #say ‘PID: ’, $_ # Only in Rakudo 2018.04 and newer, otherwise Nil
-          }
-  
-          whenever $proc.start {
-  
-              #say ‘Proc finished: exitcode=’, .exitcode, ‘ signal=’, .signal;
-  
-              my $exit-code = .exitcode;
-
-              $tests-cnt++;
-
-              if $exit-code != 0 {
-                $failures-cnt++;
-                print " {time - $start} sec. FAIL\n" if $q-mode;
-              } else {
-                print " {time - $start} sec. OK\n" if $q-mode;
-              }
-  
-              $fh.close;
-
-              done # gracefully jump from the react block
-  
-         }
-  
-      }
-  
-    }
-  
-    say "=========================================";
-  
-    if $failures-cnt >= 1 {
-      say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
-    } else {
-      say "(=: ($tests-cnt) tests passed"
-    }
-  
   }
+
 }
 
 

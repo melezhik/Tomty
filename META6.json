@@ -4,16 +4,20 @@
   ],
   "build-depends" : [ ],
   "depends" : [
-    "Tomtit"
+    "Sparrow6",
+    "File::Directory::Tree",
+    "YAMLish"
   ],
-  "description" : "Tomty - Simple Tomtit Based Test Runner",
+  "description" : "Tomty - Simple Perl6 Test Runner",
   "license" : "Artistic-2.0",
   "name" : "Tomty",
   "perl" : "6.*",
   "provides" : {
-    "Tomty" : "lib/Tomty.pm6"
+    "Tomty" : "lib/Tomty.pm6",
+    "Tomty::Completion" : "lib/Tomty/Completion.pm6"
   },
   "resources" : [
+    "completion.sh"
   ],
   "source-type" : "git",
   "source-url" : "https://github.com/melezhik/Tomty",
