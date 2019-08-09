@@ -27,10 +27,10 @@ Tomty - Simple Perl6 Test Runner.
     [3] / [test-03] .......  3 sec. OK
     =========================================
     )=: (2) tests passed / (1) failed
-    
 
+    # save tests to Git
 
-    echo ".cache" >> .gitignore
+    echo ".tomty/.cache" >> .gitignore
 
     git add .tomty
 
