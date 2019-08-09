@@ -1,6 +1,6 @@
 #/usr/bin/env bash
 
-tomty_completions()
+_tomty_completions()
 {
   
   cur_word="${COMP_WORDS[COMP_CWORD]:-UNKNOWN}"
@@ -35,4 +35,4 @@ tomty_completions()
 
 }
 
-complete -F tomty_completions tomty
+complete -F _tomty_completions tomty
