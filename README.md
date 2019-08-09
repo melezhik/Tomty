@@ -87,7 +87,9 @@ To list all the tests just say `tomty --list`
 
 This command will list all test scenarios.
 
-# Tomtu cli
+# Tomty cli
+
+TODO: Add full description of cli options
 
 ## Options
 
