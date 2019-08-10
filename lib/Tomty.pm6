@@ -27,7 +27,7 @@ our sub init () is export {
 
   my %conf = Hash.new;
 
-  if "/home/{%*ENV<USER>}/tom.yaml".IO ~~ :e {
+  if "/home/{%*ENV<USER>}/tomty.yaml".IO ~~ :e {
     %conf = load-yaml(slurp "/home/{%*ENV<USER>}/tomty.yaml");
   }
 
