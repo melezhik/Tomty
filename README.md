@@ -86,6 +86,56 @@ To list all the tests just say `tomty --list`
 
 This command will list all tests.
 
+# Environments
+
+* Tomty environments are configuration files, written on Perl6 and technically speaking are plain Perl6 Hashes
+
+* Environment configuration files should be placed at `.tomty/conf` directory:
+
+`.tomty/env/config.pl6`:
+
+
+    {
+        dbname => "products",
+        dbhost => "localhost"
+
+    }
+
+When tomty runs it picks the `.tomty/env/config.pl6` and read configuration from it 
+variables will be accessible as `config` Hash, inside Tomty scenarios:
+
+
+    my $dbname = config<dbname>;
+    my $dbhost = config<dbhost>;
+
+
+To define _named_ configuration ( environment ), simply create `.tomty/env/config{$env}.pl6` file and refer to it through 
+`--env=$env` parameter:
+
+    nano .tomty/env/config.prod.pl6
+
+    tomty --env=prod ... other parameters here # will run with production configuration
+
+You can run editor for environment configuration by using --edit option:
+
+    tomty --env-edit test    # edit test environment configuration
+
+    tomty --env-edit default # edit default configuration
+
+You can activate environment by using `--env-set` parameter:
+
+    tomty --env-set prod    # set prod environment as default
+    tomty --env-set         # to list active (current) environment
+    tomty --env-set default # to set current environment to default
+
+To view environment configuration use `--env-cat` command:
+
+    tomty --env-cat $env
+
+You print out the list of all environments by using `--env-list` parameters:
+
+    tomty --env-list
+
 # Tomty cli
 
 TODO: Add full description of cli options
