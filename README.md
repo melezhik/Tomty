@@ -80,11 +80,31 @@ For example:
 
     tomty test-meta6-is-valid-json
 
-## Examing tests
+## Examining tests
 
 To list all the tests just say `tomty --list`
 
 This command will list all tests.
+
+## Managing tests
+
+### Removing test
+
+To remove test use `--remove` option:
+
+    tomty --remove $test
+
+# Edit test source code
+
+Use `--edit` to create test from the scratch or to edit existed test source code:
+
+    tomty --edit $test
+
+### Getting test source code
+
+Use `--cat` command to print out test source code:
+
+    tomtit --cat $test
 
 # Environments
 
@@ -93,7 +113,6 @@ This command will list all tests.
 * Environment configuration files should be placed at `.tomty/conf` directory:
 
 `.tomty/env/config.pl6`:
-
 
     {
         dbname => "products",
@@ -136,11 +155,31 @@ You print out the list of all environments by using `--env-list` parameters:
 
     tomty --env-list
 
+Use `--lines` flag to print out source code with line numbers.
+
+## Bash completion
+
+Tomty comes with nice Bash completion to easy cli usage, use `--completion` option to install completion:
+
+    tomty --completion
+
+And then `source ~/.tomty_completion.sh` to activate one.
+
 # Tomty cli
 
-TODO: Add full description of cli options
-
 ## Options
+
+* `--edit|--cat|--remove`
+
+Edit, dump, remove test
+
+* `--env-edit|--env-list|--env-set`
+
+Edit, list, set environment
+
+* `--completion`
+
+Install Tomty Bash completion
 
 * `-q`, `--quiet`
 
@@ -150,7 +189,6 @@ Runs tests in quiet mode, only statuses are shown
 * `--log`
 
 Get log for given test run, useful when running in quiet mode:
-
 
     tomty -q
     tomty --log test-01
