@@ -133,13 +133,15 @@ sub test-run-all ($dir,%args) is export {
 
   my $failures-cnt = 0;
 
+  my $cnt = test-list($dir).elems;
+
   for test-list($dir) -> $s {
 
     $i++;
 
     if $q-mode {
 
-      print "[$i] / [$s] ....... ";
+      print "[$i/$cnt] / [$s] ....... ";
 
     } else {
 
