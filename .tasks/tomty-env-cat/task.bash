@@ -1,0 +1,1 @@
+tomty --env-cat dev
