@@ -203,9 +203,10 @@ sub test-run-all ($dir,%args) is export {
   say "=========================================";
 
   if $failures-cnt >= 1 {
-    say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
+    say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed";
+    exit(1);
   } else {
-    say "(=: ($tests-cnt) tests passed"
+    say "(=: ($tests-cnt) tests passed";
   }
 
 }
