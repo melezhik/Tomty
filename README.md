@@ -22,9 +22,9 @@ Tomty - Simple Perl6 Test Runner.
 
     tomty --all -q # Run all tests and make reports
 
-    [1] / [test-01] .......  2 sec. OK
-    [2] / [test-02] .......  3 sec. FAIL
-    [3] / [test-03] .......  3 sec. OK
+    [1/3] / [test-01] .......  2 sec. OK
+    [2/3] / [test-02] .......  3 sec. FAIL
+    [3/3] / [test-03] .......  3 sec. OK
     =========================================
     )=: (2) tests passed / (1) failed
 
