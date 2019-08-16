@@ -135,7 +135,6 @@ sub test-run-all ($dir,%args) is export {
 
   my $cnt = test-list($dir).elems;
 
-  my %macros-state;
 
   for test-list($dir) -> $s {
 
@@ -148,6 +147,8 @@ sub test-run-all ($dir,%args) is export {
         }
         
     }
+
+    my %macros-state;
 
     if @macros {
       use MONKEY-SEE-NO-EVAL;
