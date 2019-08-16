@@ -36,7 +36,7 @@ Tomty - Simple Perl6 Test Runner.
 
 #  Guide
 
-## Writing test
+## Writing tests
 
 Tomty test is just a Sparrow6 scenario:
 
@@ -94,7 +94,7 @@ To remove test use `--remove` option:
 
     tomty --remove $test
 
-# Edit test source code
+### Edit test source code
 
 Use `--edit` to create test from the scratch or to edit existed test source code:
 
@@ -105,6 +105,8 @@ Use `--edit` to create test from the scratch or to edit existed test source code
 Use `--cat` command to print out test source code:
 
     tomtit --cat $test
+
+Use `--lines` flag to print out test source code with line numbers.
 
 # Environments
 
@@ -151,11 +153,11 @@ To view environment configuration use `--env-cat` command:
 
     tomty --env-cat $env
 
+Use `--lines` flag to print out environment source code with line numbers.
+
 You print out the list of all environments by using `--env-list` parameters:
 
     tomty --env-list
-
-Use `--lines` flag to print out source code with line numbers.
 
 ## Macros
 
