@@ -135,13 +135,35 @@ sub test-run-all ($dir,%args) is export {
 
   my $cnt = test-list($dir).elems;
 
+  my %macros-state;
+
   for test-list($dir) -> $s {
+
+    my @macros;
+
+    for "$dir/$s.pl6".IO.lines -> $l {
+
+        if $l ~~ /^^ \s* '=begin tomty'/ ^fff^ $l ~~ /^^ \s* '=end tomty'/ {
+            push @macros, $l;
+        }
+        
+    }
+
+    if @macros {
+      use MONKEY-SEE-NO-EVAL;
+      %macros-state = EVAL @macros.join("\n");
+    }
 
     $i++;
 
     if $q-mode {
 
       print "[$i/$cnt] / [$s] ....... ";
+
+      if %args<skip> && %macros-state<tag> && so %args<skip> ∈ %macros-state<tag> {
+        print " SKIP\n";
+        next;
+      }
 
     } else {
 

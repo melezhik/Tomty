@@ -128,7 +128,7 @@ variables will be accessible as `config` Hash, inside Tomty scenarios:
     my $dbhost = config<dbhost>;
 
 
-To define _named_ configuration ( environment ), simply create `.tomty/env/config{$env}.pl6` file and refer to it through 
+To define _named_ configuration ( environment ), simply create `.tomty/env/config{$env}.pl6` file and refer to it through
 `--env=$env` parameter:
 
     nano .tomty/env/config.prod.pl6
@@ -156,6 +156,21 @@ You print out the list of all environments by using `--env-list` parameters:
     tomty --env-list
 
 Use `--lines` flag to print out source code with line numbers.
+
+## Macros
+
+Tomty macros allow to pre-process test scenarios. To embed macros use `=begin tomty` .. `=end tomty` syntax:
+
+    =begin tomty
+    %(
+      tag => "slow"
+    )
+    =end empty
+
+Macros could be any Perl6 code, returning `Hash`. The example above set tag=`slow` for slow running tests,
+you can skip test execution by using `--skip` option:
+
+    tomty -q -all --skip slow
 
 ## Bash completion
 

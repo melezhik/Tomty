@@ -19,5 +19,5 @@ install:
     - cd ../../ 
 
 script:
-  - tomty -q -all || tomty -all
+  - tomty -q -all -skip=broken || tomty -all -skip=broken
 
