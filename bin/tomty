@@ -10,6 +10,7 @@ sub MAIN (
   Bool :$q          = False, # alias for $quiet 
   Bool :$all        = False,
   Str  :$skip,
+  Str  :$only,
   Bool :$log        = False,
   Bool :$completion = False, 
   Bool :$clean      = False, 
@@ -91,7 +92,7 @@ sub MAIN (
 
   } elsif ($all) {
 
-    test-run-all("{$*CWD}/.tomty", %( q-mode => $q-mode, skip => $skip ));
+    test-run-all("{$*CWD}/.tomty", %( q-mode => $q-mode, skip => $skip, only => $only ));
 
   } else {
 

@@ -1,6 +1,6 @@
 =begin tomty
 %(
-  tag => "broken"
+  tag => ( "broken", "flaky" )
 )
 =end tomty
 

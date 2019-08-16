@@ -210,6 +210,25 @@ Get log for given test run, useful when running in quiet mode:
     tomty -q
     tomty --log test-01
 
+* `--skip`
+
+Conditionally skip tagged tests:
+
+    tomty --all -a --skip=slow
+
+* `--only`
+
+Conditionally run only tagged tests:
+
+    tomty --all -a --only=database
+
+# Environment variables
+
+* `TOMTY_DEBUG`
+
+Use it when debugging Tomty itself:
+
+    TOMTY_DEBUG=1 tomty --all -q
 
 # See also
 

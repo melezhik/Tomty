@@ -153,22 +153,48 @@ sub test-run-all ($dir,%args) is export {
     if @macros {
       use MONKEY-SEE-NO-EVAL;
       %macros-state = EVAL @macros.join("\n");
+
+      if %*ENV<TOMTY_DEBUG> {
+        say "\%macros-state: ", %macros-state.perl;
+      }
+  
+    }
+
+
+    if %args<only> {
+
+      unless so %args<only> ∈ %macros-state<tag> {
+        next
+      }
+
     }
 
     $i++;
+
+    my $skip = False;
+
+    if %args<skip> && %macros-state<tag> && so %args<skip> ∈ %macros-state<tag> {
+      $skip = True
+    }
 
     if $q-mode {
 
       print "[$i/$cnt] / [$s] ....... ";
 
-      if %args<skip> && %macros-state<tag> && so %args<skip> ∈ %macros-state<tag> {
+      if $skip {
         print " SKIP\n";
         next;
       }
 
+
     } else {
 
-      say "[$s] ....... ";
+      if $skip {
+        say "[$s] ....... SKIP";
+        next;
+      } else {
+        say "[$s] ....... ";
+      }
 
     }
 
