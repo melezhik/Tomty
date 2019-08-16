@@ -4,4 +4,4 @@ lib/.precomp/
 Tomty-*
 .cache
 log.txt
-
+env/current
