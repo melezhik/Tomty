@@ -167,7 +167,7 @@ Tomty macros allow to pre-process test scenarios. To embed macros use `=begin to
     %(
       tag => "slow"
     )
-    =end empty
+    =end tomty
 
 Macros could be any Perl6 code, returning `Hash`. The example above set tag=`slow` for slow running tests,
 you can skip test execution by using `--skip` option:
