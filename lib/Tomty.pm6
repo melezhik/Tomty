@@ -135,6 +135,7 @@ sub test-run-all ($dir,%args) is export {
 
   my $cnt = test-list($dir).elems;
 
+  my $start-all = time;
 
   for test-list($dir) -> $s {
 
@@ -254,10 +255,10 @@ sub test-run-all ($dir,%args) is export {
   say "=========================================";
 
   if $failures-cnt >= 1 {
-    say ")=: ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed";
+    say ")=: / [$i] tests in {time - $start-all} sec / ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed";
     exit(1);
   } else {
-    say "(=: ($tests-cnt) tests passed";
+    say "(=: / [$i] tests in {time - $start-all} sec / ($tests-cnt) tests passed";
   }
 
 }
@@ -265,7 +266,7 @@ sub test-run-all ($dir,%args) is export {
 sub test-log ($test) is export {
 
     if "{reports-dir()}/$test.log".IO ~~ :e {
-      say slurp "{reports-dir()}/$test.log"
+      shell "less {reports-dir()}/$test.log"
     } else {
       say "no log for test <$test> found"
     }
