@@ -186,6 +186,26 @@ And then `source ~/.tomty_completion.sh` to activate one.
 
 ## Options
 
+* `--all|-a`
+
+Run all tests
+
+* `--verbose`
+
+Runs tests in verbose mode, print more details about every test
+
+* `--list`
+
+List tests
+
+* `--noheader`
+
+Omit header when list tests. Allow to edit tests one by one:
+
+
+    for i in $(tomty --noheader); do tomty --edit $i; done
+
+
 * `--edit|--cat|--remove`
 
 Edit, dump, remove test
@@ -198,23 +218,19 @@ Edit, list, set environment
 
 Install Tomty Bash completion
 
-* `--verbose`
-
-Runs tests in verbose mode, print more details about every test
-
-
 * `--log`
 
 Get log for given test run, useful when running in all tests mode:
 
     tomty -all
+
     tomty --log test-01
 
 * `--skip`
 
 Conditionally skip tagged tests:
 
-    tomty --all -a --skip=slow
+    tomty --all --skip=slow
 
 * `--only`
 

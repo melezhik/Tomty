@@ -7,6 +7,8 @@ sub MAIN (
   $thing?,
   Bool :$verbose    = False, 
   Bool :$all        = False,
+  Bool :$noheader   = False,
+  Bool :$a          = False,
   Str  :$skip,
   Str  :$only,
   Bool :$log        = False,
@@ -29,6 +31,9 @@ sub MAIN (
 {
 
   my %config = init();
+
+  my $all-mode = $all || $a;
+
   
   if ($completion) { # install completion
 
@@ -40,7 +45,7 @@ sub MAIN (
 
   } elsif ($list) { # tests list
 
-    test-list-print("{$*CWD}/.tomty")
+    test-list-print("{$*CWD}/.tomty", %( noheader => $noheader ))
 
   } elsif ($help) { # help page
 
@@ -82,17 +87,17 @@ sub MAIN (
 
     test-log($thing);
 
-  } elsif (!$all && $thing ) {
+  } elsif (!$all-mode && $thing ) {
 
     test-run("{$*CWD}/.tomty", $thing );
 
-  } elsif ($all) {
+  } elsif ($all-mode) {
 
     test-run-all("{$*CWD}/.tomty", %( verbose-mode => $verbose, skip => $skip, only => $only ));
 
   } else {
 
-    test-list-print("{$*CWD}/.tomty")
+    test-list-print("{$*CWD}/.tomty", %( noheader => $noheader ))
 
   }
 

@@ -290,9 +290,9 @@ sub test-list ($dir) is export {
 
 }
 
-sub test-list-print ($dir) is export {
+sub test-list-print ($dir, %args?) is export {
 
-    say "[tests list]";
+    say "[tests list]" unless %args<noheader>;
 
     my @list = test-list($dir);
 
