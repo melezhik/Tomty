@@ -20,7 +20,7 @@ Tomty - Simple Perl6 Test Runner.
 
     bash "echo Hello Again!";
 
-    tomty --all -q # Run all tests and make reports
+    tomty --all # Run all tests and make reports
 
     [1/3] / [test-01] .......  2 sec. OK
     [2/3] / [test-02] .......  3 sec. FAIL
@@ -172,7 +172,7 @@ Tomty macros allow to pre-process test scenarios. To embed macros use `=begin to
 Macros could be any Perl6 code, returning `Hash`. The example above set tag=`slow` for slow running tests,
 you can skip test execution by using `--skip` option:
 
-    tomty -q -all --skip=slow
+    tomty -all --skip=slow
 
 ## Bash completion
 
@@ -198,16 +198,16 @@ Edit, list, set environment
 
 Install Tomty Bash completion
 
-* `-q`, `--quiet`
+* `--verbose`
 
-Runs tests in quiet mode, only statuses are shown
+Runs tests in verbose mode, print more details about every test
 
 
 * `--log`
 
-Get log for given test run, useful when running in quiet mode:
+Get log for given test run, useful when running in all tests mode:
 
-    tomty -q
+    tomty -all
     tomty --log test-01
 
 * `--skip`
@@ -220,7 +220,7 @@ Conditionally skip tagged tests:
 
 Conditionally run only tagged tests:
 
-    tomty --all -a --only=database
+    tomty --all --only=database
 
 # Environment variables
 
@@ -228,7 +228,7 @@ Conditionally run only tagged tests:
 
 Use it when debugging Tomty itself:
 
-    TOMTY_DEBUG=1 tomty --all -q
+    TOMTY_DEBUG=1 tomty --all
 
 # See also
 

@@ -6,8 +6,6 @@ sub MAIN (
 
   $thing?,
   Bool :$verbose    = False, 
-  Bool :$quiet      = False,
-  Bool :$q          = False, # alias for $quiet 
   Bool :$all        = False,
   Str  :$skip,
   Str  :$only,
@@ -32,8 +30,6 @@ sub MAIN (
 
   my %config = init();
   
-  my $q-mode  = $q || $quiet || %config<options><quiet>;
-
   if ($completion) { # install completion
 
     completion-install();
@@ -92,7 +88,7 @@ sub MAIN (
 
   } elsif ($all) {
 
-    test-run-all("{$*CWD}/.tomty", %( q-mode => $q-mode, skip => $skip, only => $only ));
+    test-run-all("{$*CWD}/.tomty", %( verbose-mode => $verbose, skip => $skip, only => $only ));
 
   } else {
 

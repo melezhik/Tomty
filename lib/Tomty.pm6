@@ -125,7 +125,7 @@ sub test-run ($dir,$test,%args?) is export {
 
 sub test-run-all ($dir,%args) is export {
 
-  my $q-mode = %args<q-mode>;
+  my $verbose-mode = %args<verbose-mode>;
 
   my $i;
 
@@ -178,7 +178,7 @@ sub test-run-all ($dir,%args) is export {
       $skip = True
     }
 
-    if $q-mode {
+    if ! $verbose-mode {
 
       print "[$i/$cnt] / [$s] ....... ";
 
@@ -212,13 +212,13 @@ sub test-run-all ($dir,%args) is export {
 
           $fh.say($_);
 
-          say $_ unless $q-mode;
+          say $_ if $verbose-mode;
 
         }
 
         whenever $proc.stderr { # chunks
 
-          say $_ unless $q-mode;
+          say $_ if $verbose-mode;
 
         }
 
@@ -237,9 +237,9 @@ sub test-run-all ($dir,%args) is export {
 
             if $exit-code != 0 {
               $failures-cnt++;
-              print " {time - $start} sec. FAIL\n" if $q-mode;
+              print " {time - $start} sec. FAIL\n" unless $verbose-mode;
             } else {
-              print " {time - $start} sec. OK\n" if $q-mode;
+              print " {time - $start} sec. OK\n" unless $verbose-mode;
             }
 
             $fh.close;
