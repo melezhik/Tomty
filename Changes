@@ -1,9 +1,9 @@
 Revision history for Tomty
 
+{{$NEXT}}
+
     - quiet mode is enabled by default
     - verbose mode gives details about every test
-
-{{$NEXT}}
 
     - log command invokes less
     - all tests report imporvement
