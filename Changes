@@ -2,6 +2,8 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+0.0.3  2019-08-23T13:42:23-05:00
+
     - `-a` is alias for `-all`
     - `-noheader` option for test listing
     - documentation refined
