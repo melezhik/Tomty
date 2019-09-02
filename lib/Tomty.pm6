@@ -137,6 +137,8 @@ sub test-run-all ($dir,%args) is export {
 
   my $start-all = time;
 
+  unlink "{reports-dir()}/.failures.log" if "{reports-dir()}/.failures.log".IO ~~ :e;
+
   for test-list($dir) -> $s {
 
     my @macros;
@@ -237,12 +239,17 @@ sub test-run-all ($dir,%args) is export {
 
             if $exit-code != 0 {
               $failures-cnt++;
+              $fh.close;
               print " {time - $start} sec. FAIL\n" unless $verbose-mode;
-            } else {
+              my $fh1 = open "{reports-dir()}/.failures.log", :a;
+              $fh1.say("[$s]");
+              $fh1.say("{reports-dir()}/$s.log".IO.slurp);
+              $fh1.close;
+           } else {
               print " {time - $start} sec. OK\n" unless $verbose-mode;
+              $fh.close;
             }
 
-            $fh.close;
 
             done # gracefully jump from the react block
 
