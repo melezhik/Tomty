@@ -2,6 +2,8 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+0.0.4  2019-09-04T21:30:13-05:00
+
     - `show-failed` option
     - minor cli improvements
 
