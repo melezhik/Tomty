@@ -263,6 +263,10 @@ sub test-run-all ($dir,%args) is export {
 
   if $failures-cnt >= 1 {
     say ")=: / [$i] tests in {time - $start-all} sec / ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed";
+    if ! $verbose-mode && %args<show-failed> {
+      say "[Failed tests]";
+      say "{reports-dir()}/.failures.log".IO.slurp
+    }
     exit(1);
   } else {
     say "(=: / [$i] tests in {time - $start-all} sec / ($tests-cnt) tests passed";
@@ -297,12 +301,28 @@ sub test-list ($dir) is export {
 
 }
 
+sub current-env ($dir) {
+
+    my $current = "default";
+
+    if "$dir/current".IO ~~ :e  && "$dir/current".IO.resolve.IO.basename {
+
+      if "$dir/current".IO.resolve.IO.basename ~~ /config\.(.*)\.pl6/ {
+        $current = "$0"
+      }
+
+    }
+
+  return $current;
+
+}
+
 sub test-list-print ($dir, %args?) is export {
 
-    say "[tests list]" unless %args<noheader>;
-
     my @list = test-list($dir);
+    my $current-env = current-env("$dir/env");
 
+    say "[{$current-env}@tests]" unless %args<noheader>;
     say join "\n", @list.sort;
 
 }
@@ -368,15 +388,7 @@ sub environment-list ($dir) is export {
 
     my @list = Array.new;
 
-    my $current = "default";
-
-    if "$dir/current".IO ~~ :e  && "$dir/current".IO.resolve.IO.basename {
-
-      if "$dir/current".IO.resolve.IO.basename ~~ /config\.(.*)\.pl6/ {
-        $current = "$0"
-      }
-
-    }
+    my $current = current-env($dir);
 
     for dir($dir) -> $f {
 

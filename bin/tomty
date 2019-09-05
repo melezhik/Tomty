@@ -7,8 +7,9 @@ sub MAIN (
   $thing?,
   Bool :$verbose    = False, 
   Bool :$all        = False,
-  Bool :$noheader   = False,
   Bool :$a          = False,
+  Bool :$show-failed  = False,
+  Bool :$noheader   = False,
   Str  :$skip,
   Str  :$only,
   Bool :$log        = False,
@@ -34,7 +35,6 @@ sub MAIN (
 
   my $all-mode = $all || $a;
 
-  
   if ($completion) { # install completion
 
     completion-install();
@@ -93,7 +93,14 @@ sub MAIN (
 
   } elsif ($all-mode) {
 
-    test-run-all("{$*CWD}/.tomty", %( verbose-mode => $verbose, skip => $skip, only => $only ));
+    test-run-all(
+      "{$*CWD}/.tomty", %( 
+        verbose-mode => $verbose, 
+        skip  => $skip, 
+        only  => $only,
+        show-failed => $show-failed,
+      )
+    );
 
   } else {
 

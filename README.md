@@ -190,6 +190,10 @@ And then `source ~/.tomty_completion.sh` to activate one.
 
 Run all tests
 
+* `--show-failed`
+
+Show failed tests. Usefull
+
 * `--verbose`
 
 Runs tests in verbose mode, print more details about every test
