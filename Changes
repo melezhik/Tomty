@@ -2,6 +2,9 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - `--only` should trigger `--all` mode
+    - `--skip` should trigger `--all` mode
+
 0.0.4  2019-09-04T21:30:13-05:00
 
     - `show-failed` option
