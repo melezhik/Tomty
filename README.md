@@ -172,7 +172,7 @@ Tomty macros allow to pre-process test scenarios. To embed macros use `=begin to
 Macros could be any Perl6 code, returning `Hash`. The example above set tag=`slow` for slow running tests,
 you can skip test execution by using `--skip` option:
 
-    tomty -all --skip=slow
+    tomty --skip=slow
 
 ## Bash completion
 
@@ -240,7 +240,7 @@ Conditionally skip tagged tests:
 
 Conditionally run only tagged tests:
 
-    tomty --all --only=database
+    tomty --only=database
 
 # Environment variables
 

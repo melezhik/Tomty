@@ -4,6 +4,11 @@ Revision history for Tomty
 
     - pass `--env` to `test-run` method
 
+0.0.5  2019-09-13T21:07:08-05:00
+
+    - `--only` should trigger `--all` mode
+    - `--skip` should trigger `--all` mode
+
 0.0.4  2019-09-04T21:30:13-05:00
 
     - `show-failed` option

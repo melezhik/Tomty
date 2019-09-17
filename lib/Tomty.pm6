@@ -2,7 +2,7 @@
 
 use v6;
 
-unit module Tomty:ver<0.0.4>;
+unit module Tomty:ver<0.0.5>;
 
 use Sparrow6::Task::Repository;
 
@@ -47,8 +47,11 @@ sub tomty-help () is export  {
   run all tests:
     tomty --all
 
-  run tests in quiet mode:
-    tomty -q
+  run only tests:
+    tomty --only=dev
+
+  run all tests, excluding:
+    tomty --skip=prod
 
   run test:
     tomty $test
@@ -163,18 +166,18 @@ sub test-run-all ($dir,%args) is export {
   
     }
 
+    my $skip = False;
+
+    $i++;
 
     if %args<only> {
 
       unless so %args<only> ∈ %macros-state<tag> {
-        next
+        $skip = True
       }
 
     }
 
-    $i++;
-
-    my $skip = False;
 
     if %args<skip> && %macros-state<tag> && so %args<skip> ∈ %macros-state<tag> {
       $skip = True

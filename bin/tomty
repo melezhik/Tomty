@@ -33,7 +33,7 @@ sub MAIN (
 
   my %config = init();
 
-  my $all-mode = $all || $a;
+  my $all-mode = $all || $a || $only || $skip;
 
   if ($completion) { # install completion
 
