@@ -99,6 +99,7 @@ sub MAIN (
         skip  => $skip, 
         only  => $only,
         show-failed => $show-failed,
+        env => $env,
       )
     );
 

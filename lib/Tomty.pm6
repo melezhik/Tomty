@@ -27,10 +27,15 @@ our sub init () is export {
 
   my %conf = Hash.new;
 
-  if "/home/{%*ENV<USER>}/tomty.yaml".IO ~~ :e {
-    %conf = load-yaml(slurp "/home/{%*ENV<USER>}/tomty.yaml");
+  if $*DISTRO.is-win {
+    if "{%*ENV<HOMEDRIVE>}{%*ENV<HOMEPATH>}/tomty.yaml".IO ~~ :e {
+      %conf = load-yaml(slurp "{%*ENV<HOMEDRIVE>}{%*ENV<HOMEPATH>}/tomty.yaml");
+    }
+  } else {  
+    if "{%*ENV<HOME>}/tomty.yaml".IO ~~ :e {
+      %conf = load-yaml(slurp "{%*ENV<HOME>}/tomty.yaml");
+    }
   }
-
   %conf;
 
 }
@@ -204,8 +209,8 @@ sub test-run-all ($dir,%args) is export {
 
     }
 
-
-    my $proc = %args<env> ?? Proc::Async.new("tomty","--env", %args<env>,$s) !! Proc::Async.new("tomty",$s);
+    my @cmd = $*DISTRO.is-win ?? ("cmd.exe","/c","tomty") !! ("tomty");
+    my $proc = %args<env> ?? Proc::Async.new(@cmd,"--env={%args<env>}",$s) !! Proc::Async.new(@cmd,$s);
 
     my $fh = open "{reports-dir()}/$s.log", :w;
 

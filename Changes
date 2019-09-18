@@ -2,6 +2,7 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - windows support 
     - pass `--env` to `test-run` method
 
 0.0.5  2019-09-13T21:07:08-05:00
