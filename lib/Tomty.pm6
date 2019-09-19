@@ -106,17 +106,19 @@ sub test-run ($dir,$test,%args?) is export {
 
   my $conf-file;
 
+  my $current-env = current-env("{$dir}/env");
+
   if %args<env> {
 
     $conf-file = %args<env> eq 'default' ?? "$dir/env/config.pl6" !! "$dir/env/config.{%args<env>}.pl6";
 
-  } elsif "$dir/env/current".IO ~~ :e  && "$dir/env/current".IO.resolve.IO.basename {
+  } elsif $current-env eq 'default' &&  "$dir/env/config.pl6".IO ~~ :e {
 
-    $conf-file = "$dir/env/current".IO.resolve;
+    $conf-file =  "$dir/env/config.pl6";
 
-  } elsif ( "$dir/env/config.pl6".IO ~~ :e ) {
+  } elsif "$dir/env/config.{$current-env}.pl6".IO ~~ :e  {
 
-    $conf-file = "$dir/env/config.pl6"
+    $conf-file = "$dir/env/config.{$current-env}.pl6";
 
   }
 
@@ -360,7 +362,12 @@ sub test-edit ($dir,$test) is export {
 
 sub current-env ($dir) {
 
-  my $current = slurp "$dir/current";
+  my $current;
+
+  if "$dir/current".IO ~~ :e {
+    $current = slurp "$dir/current";
+  }
+
   return $current || "default"
 
 }
