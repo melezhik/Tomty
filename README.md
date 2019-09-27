@@ -6,6 +6,10 @@ Tomty - Simple Perl6 Test Runner.
 
     zef install Tomty
 
+# Build Status
+
+[![Build Status](https://travis-ci.org/melezhik/Tomty.svg?branch=master)](https://travis-ci.org/melezhik/Tomty)
+
 # Usage
 
     tomty --edit test-01
