@@ -286,7 +286,12 @@ sub test-run-all ($dir,%args) is export {
 sub test-log ($test) is export {
 
     if "{reports-dir()}/$test.log".IO ~~ :e {
-      shell "less {reports-dir()}/$test.log"
+      $*DISTRO.is-win {
+        say "{reports-dir()}/$test.log".IO.slurp
+      } else {
+        shell "less {reports-dir()}/$test.log"
+      }
+      
     } else {
       say "no log for test <$test> found"
     }
