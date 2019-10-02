@@ -267,4 +267,3 @@ Alexey Melezhik
 # Thanks to
 
 God, as my inspiration
-
