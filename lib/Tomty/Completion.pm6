@@ -10,7 +10,7 @@ unit module Tomty::Completion;
 
 require Tomty;
 
-my %config = ::("Tomty::" ~ '&init')();
+::("Tomty::" ~ '&init')("$*CWD");
 
 sub complete () is export {
 

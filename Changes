@@ -2,6 +2,7 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - Initialization - don't run tomty on uninitialized projects
     - test-log windows support
 
 0.0.6  2019-09-24T20:33:47-05:00

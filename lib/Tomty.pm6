@@ -20,10 +20,22 @@ sub reports-dir() {
 
 }
 
-our sub init () is export {
+our sub check-if-init ( $dir ) is export {
 
-  mkdir ".tomty/.cache";
-  mkdir ".tomty/env";
+  if ! ($dir.IO ~~ :d) {
+        say "tomty is not initialized, run tomty --init";
+        exit(1);
+  }
+
+}
+
+our sub init ($dir) is export {
+
+  mkdir $dir;
+
+}
+
+our sub load-conf () is export {
 
   my %conf = Hash.new;
 
@@ -82,7 +94,6 @@ sub tomty-help () is export  {
 
   options:
     --env=$env  # run tests for the given environment
-    --quiet,-q  # run tests in quiet mode
 
   DOC
 }
@@ -103,6 +114,8 @@ sub tomty-clean ($dir) is export {
 sub test-run ($dir,$test,%args?) is export {
 
   die "test $test not found" unless "$dir/$test.pl6".IO ~~ :e;
+
+  mkdir "$dir/.cache";
 
   my $conf-file;
 
@@ -142,6 +155,8 @@ sub test-run-all ($dir,%args) is export {
   my $tests-cnt = 0;
 
   my $failures-cnt = 0;
+
+  mkdir "$dir/.cache";
 
   my $cnt = test-list($dir).elems;
 
@@ -381,6 +396,8 @@ sub environment-edit ($dir,$env) is export {
 
     die "you should set EDITOR ENV to run editor" unless  %*ENV<EDITOR>;
 
+    mkdir $dir;
+
     my $conf-file = ( $env eq 'default' ) ?? "$dir/config.pl6" !! "$dir/config.{$env}.pl6";
 
     unless $conf-file.IO ~~ :e {
@@ -397,6 +414,8 @@ sub environment-list ($dir) is export {
     say "[environments list]";
 
     my @list = Array.new;
+
+    mkdir $dir;
 
     my $current = current-env($dir);
 
@@ -431,7 +450,10 @@ sub environment-set ($dir,$env) is export {
   # where environment manager no longer
   # uses symlinks
 
+
   unlink "$dir/current" if "$dir/current".IO ~~ :e;
+
+  mkdir $dir;
 
   spurt "$dir/current", $env;
 
@@ -439,30 +461,14 @@ sub environment-set ($dir,$env) is export {
 
 sub environment-show ($dir) is export {
 
-  if "$dir/current".IO ~~ :e {
-
-    my $current = "$dir/current".IO.resolve.IO.basename;
-
-      if $current ~~ /config\.(.*)\.pl6/ {
-
-        say "current environment: $0"
-
-      } else {
-
-        say "current environment: default"
-
-      }
-
-  } elsif "$dir/config.pl6".IO ~~ :e {
-
-    say "default";
-
+  if "$dir/current".IO ~~ :f {
+    say "current environment: ",slurp("$dir/current")
+  } elsif ( "$dir/config.pl6".IO ~~ :f) {
+    say "current environment: default";
   } else {
-
     say "default environment is not set, create default configuration file (.tomty/env/config.pl6)
-or use tom --set-env \$env to set default environments"
+or use tomty --set-env \$env to set default environments"
   }
-  
 }
 
 sub environment-cat ($dir,$env,%args?) is export {

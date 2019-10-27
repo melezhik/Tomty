@@ -16,6 +16,7 @@ sub MAIN (
   Bool :$completion = False, 
   Bool :$clean      = False, 
   Bool :$help       = False, 
+  Bool :$init       = False, 
   Bool :$list       = False, 
   Bool :$remove     = False, 
   Bool :$cat        = False, 
@@ -31,7 +32,11 @@ sub MAIN (
 
 {
 
-  my %config = init();
+  if $init {
+        init("{$*CWD}/.tomty");
+  } else {
+    check-if-init("{$*CWD}/.tomty");
+  }  
 
   my $all-mode = $all || $a || $only || $skip;
 
