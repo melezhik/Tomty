@@ -1,5 +1,5 @@
 language: minimal
 
 script:
-- curl http://repo.westus.cloudapp.azure.com/rakudist/api/run/debian/melezhik/Sparrow6 -s | bash
+- curl http://repo.westus.cloudapp.azure.com/rakudist/api/run/debian/melezhik/Tomty -s | bash
 
