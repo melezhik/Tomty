@@ -1,4 +1,4 @@
-bash "cd /data/test/{config()<user>} && tomty --skip=sudo --show-failed", %(
+bash "cd /data/test/{config()<user>} && tomty --skip=broken --show-failed", %(
   user => config()<user>,
   envvars => %( 
     SP6_REPO => "http://repo.westus.cloudapp.azure.com",
