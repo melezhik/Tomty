@@ -1,6 +1,6 @@
 # Tomty
 
-Tomty - Simple Perl6 Test Runner.
+Tomty - Raku Test Framework.
 
 # Install
 
@@ -69,8 +69,7 @@ You can write more advanced tests, for example:
 
     task-run "meta6 is a valid json", "json-lint";
 
-Check out [Sparrow6 DSL](https://github.com/melezhik/Sparrow6#sparrow6-dsl) on what you can use
-writing your tests.
+Check out [Sparrow6 DSL](https://github.com/melezhik/Sparrow6#sparrow6-dsl) on what you can use writing your tests.
 
 ## Running tests
 
@@ -126,7 +125,7 @@ Use `--lines` flag to print out test source code with line numbers.
 
     }
 
-When tomty runs it picks the `.tomty/env/config.pl6` and read configuration from it 
+When tomty runs it picks the `.tomty/env/config.pl6` and read configuration from it
 variables will be accessible as `config` Hash, inside Tomty scenarios:
 
 

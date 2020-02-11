@@ -8,7 +8,7 @@
     "File::Directory::Tree",
     "YAMLish"
   ],
-  "description" : "Tomty - Simple Perl6 Test Runner",
+  "description" : "Tomty - Raku Test Framework",
   "license" : "Artistic-2.0",
   "name" : "Tomty",
   "perl" : "6.*",
