@@ -94,7 +94,7 @@ sub MAIN (
 
   } elsif (!$all-mode && $thing ) {
 
-    test-run("{$*CWD}/.tomty", $thing, %( env => $env ) );
+    test-run("{$*CWD}/.tomty", $thing, %( env => $env, verbose => $verbose ) );
 
   } elsif ($all-mode) {
 

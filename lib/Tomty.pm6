@@ -194,23 +194,37 @@ sub test-run-all ($dir,%args) is export {
 
     if %args<only> {
 
-      unless so %args<only> ∈ %macros-state<tag> {
-        $skip = True
+      my $keep = False;
+
+      for %args<only>.split(/','/) -> $only-tag {
+        if so $only-tag.subst(/\s/,"",:g) ∈ %macros-state<tag> {
+          $keep = True;
+          last;
+        }
       }
 
+      $skip = True unless $keep;
     }
 
-    if %args<skip> && %macros-state<tag> && so %args<skip> ∈ %macros-state<tag> {
-      $skip = True
+    if %args<skip> {
+      for %args<skip>.split(/','/) -> $skip-tag {
+        if %macros-state<tag> && so $skip-tag.subst(/\s/,"",:g) ∈ %macros-state<tag> {
+          $skip = True;
+          last;
+        }
+      }
     }
 
     if ! $verbose-mode {
 
-      print "[$i/$cnt] / [$s] ....... ";
 
       if $skip {
-        print " SKIP\n";
+        if !%args<only> {
+          print "[$i/$cnt] / [$s] ....... SKIP\n";
+        }
         next;
+      } else {
+        print "[$i/$cnt] / [$s] ....... ";
       }
 
 

@@ -2,6 +2,9 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - skip/only for multiple tags split by comma
+    - only mode shows only executed tests ( less verbose behavior )
+
 0.0.8  2020-02-10T21:55:17-06:00
 
     - Use RakuDist for CI

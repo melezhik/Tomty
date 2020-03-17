@@ -209,9 +209,7 @@ List tests
 
 Omit header when list tests. Allow to edit tests one by one:
 
-
     for i in $(tomty --noheader); do tomty --edit $i; done
-
 
 * `--edit|--cat|--remove`
 
@@ -237,13 +235,21 @@ Get log for given test run, useful when running in all tests mode:
 
 Conditionally skip tagged tests:
 
-    tomty --all --skip=slow
+    tomty --skip=slow
+
+You can skip over multiple tags, split by comma:
+
+    tomty --skip=slow,windows # skip slow or windows tests
 
 * `--only`
 
 Conditionally run only tagged tests:
 
     tomty --only=database
+
+You can excute over multiple tags, split by comma:
+
+    tomty --only=database,frontend # execute only database or frontend tests
 
 # Environment variables
 
