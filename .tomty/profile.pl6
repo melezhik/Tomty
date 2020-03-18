@@ -1,0 +1,5 @@
+%(
+  default => %(
+    skip => "broken"
+  )
+)

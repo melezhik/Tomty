@@ -52,6 +52,30 @@ our sub load-conf () is export {
 
 }
 
+our sub read-profile ($dir, $profile, %args?) is export {
+
+  my %profile-data;
+
+  if "$dir/profile.pl6".IO ~~ :f {
+
+      say "read profiles from $dir/profile.pl6" if %args<verbose>;
+
+      my %profiles = EVALFILE "$dir/profile.pl6";
+      if %profiles{$profile}:exists {
+        say "profile <$profile> found" if %args<verbose>;
+        %profile-data = %profiles{$profile};
+        if %*ENV<TOMTY_DEBUG> {
+          say "<$profile> profile: ", %profile-data.perl;
+        }  
+      } else {
+        say "[WARN] profile <$profile> not found" 
+      }
+  }
+
+  return %profile-data;
+
+}
+
 sub tomty-usage () is export  {
   say 'usage: tomty $action|$options $thing'
 }

@@ -177,6 +177,43 @@ you can skip test execution by using `--skip` option:
 
     tomty --skip=slow
 
+## Profiles
+
+Tomty profile sets command line arguments for a named profile:
+
+    cat .tomty/profile.pl6
+
+    %(
+      default => %(
+        skip => "broken"
+      )
+    )
+
+One can override following command line arguments through a profile:
+
+* `skip`
+* `only`
+
+In the future more arguments will be supported.
+
+A `default` profile sets default command line arguments when `tomty` cli run.
+
+To add more profiles just add more Hash keys and define proper settings:
+
+
+    %(
+      default => %(
+        skip => "broken"
+      ),
+      development => %(
+        only => "new-bugs"
+      )
+    )
+
+To chose profile use `--profile` option:
+
+    tomty --profile development
+
 ## Bash completion
 
 Tomty comes with nice Bash completion to easy cli usage, use `--completion` option to install completion:

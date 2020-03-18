@@ -6,6 +6,6 @@
 
 =end tomty
 
-#die "broken!";
+die "broken!";
 
 
