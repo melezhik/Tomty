@@ -56,11 +56,11 @@ our sub read-profile ($dir, $profile, %args?) is export {
 
   my %profile-data;
 
-  if "$dir/profile.pl6".IO ~~ :f {
+  if "$dir/profile".IO ~~ :f {
 
-      say "read profiles from $dir/profile.pl6" if %args<verbose>;
+      say "read profiles from $dir/profile" if %args<verbose>;
 
-      my %profiles = EVALFILE "$dir/profile.pl6";
+      my %profiles = EVALFILE "$dir/profile";
       if %profiles{$profile}:exists {
         say "profile <$profile> found" if %args<verbose>;
         %profile-data = %profiles{$profile};

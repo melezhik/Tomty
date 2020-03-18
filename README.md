@@ -181,7 +181,7 @@ you can skip test execution by using `--skip` option:
 
 Tomty profile sets command line arguments for a named profile:
 
-    cat .tomty/profile.pl6
+    cat .tomty/profile
 
     %(
       default => %(
