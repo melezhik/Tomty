@@ -282,6 +282,8 @@ sub test-run-all ($dir,%args) is export {
 
         whenever $proc.stderr { # chunks
 
+          $fh.say($_);
+
           say $_ if $verbose-mode;
 
         }
