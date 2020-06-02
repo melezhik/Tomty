@@ -264,6 +264,9 @@ sub test-run-all ($dir,%args) is export {
     }
 
     my @cmd = $*DISTRO.is-win ?? ("cmd.exe","/c","tomty") !! ("tomty");
+
+    ($*OUT,$*ERR).map: {.out-buffer = 0};
+
     my $proc = %args<env> ?? Proc::Async.new(@cmd,"--env={%args<env>}",$s) !! Proc::Async.new(@cmd,$s);
 
     my $fh = open "{reports-dir()}/$s.log", :w;

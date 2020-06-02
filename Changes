@@ -2,6 +2,9 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - disable buffering ( using .out-buffer = 0 )
+    - fix Travis build ( gets run from rakudist.raku.org )
+
 0.0.10  2020-04-09T00:22:51Z
 
     - save stderr in log file too
