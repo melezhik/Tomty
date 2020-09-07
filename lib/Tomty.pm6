@@ -543,13 +543,13 @@ sub completion-install () is export {
 
   say "install completion.sh ...";
 
-  my $fh = open '/home/' ~ %*ENV<USER> ~ '/.tomty_completion.sh' , :w;
+  my $fh = open %*ENV<HOME> ~ '/.tomty_completion.sh' , :w;
 
   $fh.print(slurp %?RESOURCES{"completion.sh"}.Str);
 
   $fh.close;
 
-  say "to activate completion say: source " ~ '/home/' ~ %*ENV<USER> ~ '/.tomty_completion.sh';
+  say "to activate completion say: source " ~ %*ENV<HOME> ~ '/.tomty_completion.sh';
 
 }
 
