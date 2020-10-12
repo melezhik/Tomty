@@ -2,5 +2,7 @@
 
 my $msg = prompt("message: ");
 
-task-run "commit my changes", "git-commit", %( message => $msg );
+my %state = task-run "get branch", "git-current-branch";
+
+task-run "commit my changes", "git-commit", %( message => "[{%state<branch>}] $msg" );
 
