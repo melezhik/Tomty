@@ -238,6 +238,10 @@ Show failed tests. Usefull
 
 Runs tests in verbose mode, print more details about every test
 
+* `--color`
+
+Run in color mode
+
 * `--list`
 
 List tests

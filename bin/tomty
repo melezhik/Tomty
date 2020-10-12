@@ -9,6 +9,7 @@ sub MAIN (
   Bool :$all        = False,
   Bool :$a          = False,
   Bool :$show-failed  = False,
+  Bool :$color        = False, 
   Bool :$noheader   = False,
   Str  :$skip,
   Str  :$only,
@@ -101,7 +102,13 @@ sub MAIN (
 
   } elsif (!$all-mode && $thing ) {
 
-    test-run("{$*CWD}/.tomty", $thing, %( env => $env, verbose => $verbose ) );
+    test-run(
+        "{$*CWD}/.tomty", $thing, %( 
+          env => $env, 
+          verbose => $verbose,
+          color => $color,
+        ) 
+    );
 
   } elsif ($all-mode) {
 
@@ -109,7 +116,8 @@ sub MAIN (
 
     test-run-all(
       "{$*CWD}/.tomty", %( 
-        verbose-mode => $verbose, 
+        verbose-mode => $verbose,
+        color => $color,   
         skip  => $skip || %profile<skip>, 
         only  => $only || %profile<only>,
         show-failed => $show-failed,

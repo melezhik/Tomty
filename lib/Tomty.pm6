@@ -12,6 +12,8 @@ use YAMLish;
 
 use File::Directory::Tree;
 
+use Colorizable;
+
 # tomty cli initializer
 
 sub reports-dir() {
@@ -244,21 +246,25 @@ sub test-run-all ($dir,%args) is export {
 
       if $skip {
         if !%args<only> {
-          print "[$i/$cnt] / [$s] ....... SKIP\n";
+          my $message  = "[$i/$cnt] / [$s] ....... SKIP" but Colorizable;
+          say %args<color> ?? "{$message.yellow.on-black.bold}" !! $message;
         }
         next;
       } else {
-        print "[$i/$cnt] / [$s] ....... ";
+        my $message = "[$i/$cnt] / [$s] ....... " but Colorizable;
+        print %args<color> ?? "{$message.green.on-black.bold}" !! $message;
       }
 
 
     } else {
 
       if $skip {
-        say "[$s] ....... SKIP";
+        my $message = "[$s] ....... SKIP" but Colorizable;
+        say %args<color> ?? "{$message.yellow.on-black.bold}" !! $message;
         next;
       } else {
-        say "[$s] ....... ";
+        my $message = "[$s] ....... " but Colorizable;
+        print %args<color> ?? "{$message.green.on-black.bold}" !! $message;
       }
 
     }
@@ -307,13 +313,19 @@ sub test-run-all ($dir,%args) is export {
             if $exit-code != 0 {
               $failures-cnt++;
               $fh.close;
-              print " {time - $start} sec. FAIL\n" unless $verbose-mode;
+              my $message = " {time - $start} sec. FAIL" but Colorizable;
+              if ! $verbose-mode {
+                say %args<color> ?? $message.red.bold !! $message;
+              }
               my $fh1 = open "{reports-dir()}/.failures.log", :a;
               $fh1.say("[$s]");
               $fh1.say("{reports-dir()}/$s.log".IO.slurp);
               $fh1.close;
            } else {
-              print " {time - $start} sec. OK\n" unless $verbose-mode;
+              my $message = " {time - $start} sec. OK" but Colorizable;
+              if ! $verbose-mode {
+                say %args<color> ?? $message.green.bold !! $message;
+              }
               $fh.close;
             }
 
@@ -329,14 +341,18 @@ sub test-run-all ($dir,%args) is export {
   say "=========================================";
 
   if $failures-cnt >= 1 {
-    say ")=: / [$i] tests in {time - $start-all} sec / ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed";
+    my $message =  ")=: / [$i] tests in {time - $start-all} sec / ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
+      but Colorizable;
+      say %args<color> ?? $message.red.bold !! $message;
     if ! $verbose-mode && %args<show-failed> {
       say "[Failed tests]";
       say "{reports-dir()}/.failures.log".IO.slurp
     }
     exit(1);
   } else {
-    say "(=: / [$i] tests in {time - $start-all} sec / ($tests-cnt) tests passed";
+    my $message = "(=: / [$i] tests in {time - $start-all} sec / ($tests-cnt) tests passed" 
+      but Colorizable;
+      say %args<color> ?? $message.green.bold !! $message;
   }
 
 }

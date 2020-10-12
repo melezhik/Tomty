@@ -6,7 +6,8 @@
   "depends" : [
     "Sparrow6",
     "File::Directory::Tree",
-    "YAMLish"
+    "YAMLish",
+    "Colorizable"
   ],
   "description" : "Tomty - Raku Test Framework",
   "license" : "Artistic-2.0",
