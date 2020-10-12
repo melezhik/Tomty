@@ -243,7 +243,6 @@ sub test-run-all ($dir,%args) is export {
 
     if ! $verbose-mode {
 
-
       if $skip {
         if !%args<only> {
           my $message  = "[$i/$cnt] / [$s] ....... SKIP" but Colorizable;
@@ -264,7 +263,7 @@ sub test-run-all ($dir,%args) is export {
         next;
       } else {
         my $message = "[$s] ....... " but Colorizable;
-        print %args<color> ?? "{$message.green.on-black.bold}" !! $message;
+        say %args<color> ?? "{$message.green.on-black.bold}" !! $message;
       }
 
     }
