@@ -2,6 +2,8 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+0.0.12  2020-10-13T01:22:33Z
+
     - Use `HOME` to resolve path to completion resource
     - Color output support
 
