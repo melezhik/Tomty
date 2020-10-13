@@ -162,7 +162,8 @@ sub test-run ($dir,$test,%args?) is export {
   }
 
   if $conf-file && $conf-file.IO ~~ :e {
-    say "load configuration from $conf-file";
+    my $message =  "load configuration from $conf-file" but Colorizable;
+    say %args<color> ?? "{$message.cyan.bold}" !! $message;
     set-config(EVALFILE $conf-file);
   }
 
@@ -246,12 +247,12 @@ sub test-run-all ($dir,%args) is export {
       if $skip {
         if !%args<only> {
           my $message  = "[$i/$cnt] / [$s] ....... SKIP" but Colorizable;
-          say %args<color> ?? "{$message.yellow.on-black.bold}" !! $message;
+          say %args<color> ?? "{$message.yellow.bold}" !! $message;
         }
         next;
       } else {
         my $message = "[$i/$cnt] / [$s] ....... " but Colorizable;
-        print %args<color> ?? "{$message.green.on-black.bold}" !! $message;
+        print %args<color> ?? "{$message.green.bold}" !! $message;
       }
 
 
@@ -259,11 +260,11 @@ sub test-run-all ($dir,%args) is export {
 
       if $skip {
         my $message = "[$s] ....... SKIP" but Colorizable;
-        say %args<color> ?? "{$message.yellow.on-black.bold}" !! $message;
+        say %args<color> ?? "{$message.yellow.bold}" !! $message;
         next;
       } else {
         my $message = "[$s] ....... " but Colorizable;
-        say %args<color> ?? "{$message.green.on-black.bold}" !! $message;
+        say %args<color> ?? "{$message.green.bold}" !! $message;
       }
 
     }
@@ -272,7 +273,13 @@ sub test-run-all ($dir,%args) is export {
 
     ($*OUT,$*ERR).map: {.out-buffer = 0};
 
-    my $proc = %args<env> ?? Proc::Async.new(@cmd,"--env={%args<env>}",$s) !! Proc::Async.new(@cmd,$s);
+    my @tomty-args = Array.new;
+
+    @tomty-args.push("--env={%args<env>}") if %args<env>;
+
+    @tomty-args.push("--color") if %args<color>;
+
+    my $proc = Proc::Async.new(@cmd,@tomty-args,$s);
 
     my $fh = open "{reports-dir()}/$s.log", :w;
 
