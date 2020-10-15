@@ -16,7 +16,7 @@ Tomty - Raku Test Framework.
 
     bash "echo Hello World"
 
-    tom --edit test-02
+    tomty --edit test-02
 
     bash "echo Upps && exit 1";
 
