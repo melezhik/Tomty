@@ -36,6 +36,8 @@ sub MAIN (
 
   my $all-mode = $all || $a || $only || $skip;
 
+  %*ENV<SP6_FORMAT_COLOR> = $color;
+
   if $init {
 
     init("{$*CWD}/.tomty");

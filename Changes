@@ -2,6 +2,8 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - `color` option now enables SP6_FORMAT_COLOR variable, to make Sparrow reports colorful
+
 0.0.13  2020-10-15T01:39:18Z
 
     - Improve color output
