@@ -163,7 +163,7 @@ sub test-run ($dir,$test,%args?) is export {
 
   if $conf-file && $conf-file.IO ~~ :e {
     my $message =  "load configuration from $conf-file" but Colorizable;
-    say %args<color> ?? "{$message.cyan.bold}" !! $message;
+    say %args<color> ?? "{$message.colorize(:fg(cyan), :mo(bold))}" !! $message;
     set-config(EVALFILE $conf-file);
   }
 
@@ -247,12 +247,12 @@ sub test-run-all ($dir,%args) is export {
       if $skip {
         if !%args<only> {
           my $message  = "[$i/$cnt] / [$s] ....... SKIP" but Colorizable;
-          say %args<color> ?? "{$message.yellow.bold}" !! $message;
+          say %args<color> ?? "{$message.colorize(:fg(yellow),:mo(bold))}" !! $message;
         }
         next;
       } else {
         my $message = "[$i/$cnt] / [$s] ....... " but Colorizable;
-        print %args<color> ?? "{$message.green.bold}" !! $message;
+        print %args<color> ?? "{$message.colorize(:fg(green),:mo(bold))}" !! $message;
       }
 
 
@@ -260,11 +260,11 @@ sub test-run-all ($dir,%args) is export {
 
       if $skip {
         my $message = "[$s] ....... SKIP" but Colorizable;
-        say %args<color> ?? "{$message.yellow.bold}" !! $message;
+        say %args<color> ?? "{$message.colorize(:fg(yellow),:mo(bold))}" !! $message;
         next;
       } else {
         my $message = "[$s] ....... " but Colorizable;
-        say %args<color> ?? "{$message.green.bold}" !! $message;
+        say %args<color> ?? "{$message.colorize(:fg(green),:mo(bold))}" !! $message;
       }
 
     }
@@ -321,7 +321,7 @@ sub test-run-all ($dir,%args) is export {
               $fh.close;
               my $message = " {time - $start} sec. FAIL" but Colorizable;
               if ! $verbose-mode {
-                say %args<color> ?? $message.red.bold !! $message;
+                say %args<color> ?? $message.colorize(:fg(red),:mo(bold)) !! $message;
               }
               my $fh1 = open "{reports-dir()}/.failures.log", :a;
               $fh1.say("[$s]");
@@ -330,7 +330,7 @@ sub test-run-all ($dir,%args) is export {
            } else {
               my $message = " {time - $start} sec. OK" but Colorizable;
               if ! $verbose-mode {
-                say %args<color> ?? $message.green.bold !! $message;
+                say %args<color> ?? $message.colorize(:fg(green),:mo(bold)) !! $message;
               }
               $fh.close;
             }
@@ -349,7 +349,7 @@ sub test-run-all ($dir,%args) is export {
   if $failures-cnt >= 1 {
     my $message =  ")=: / [$i] tests in {time - $start-all} sec / ({$tests-cnt - $failures-cnt}) tests passed / ($failures-cnt) failed"
       but Colorizable;
-      say %args<color> ?? $message.red.bold !! $message;
+      say %args<color> ?? $message.colorize(:fg(red),:mo(bold)) !! $message;
     if ! $verbose-mode && %args<show-failed> {
       say "[Failed tests]";
       say "{reports-dir()}/.failures.log".IO.slurp
@@ -358,7 +358,7 @@ sub test-run-all ($dir,%args) is export {
   } else {
     my $message = "(=: / [$i] tests in {time - $start-all} sec / ($tests-cnt) tests passed" 
       but Colorizable;
-      say %args<color> ?? $message.green.bold !! $message;
+      say %args<color> ?? $message.colorize(:fg(green),:mo(bold)) !! $message;
   }
 
 }
