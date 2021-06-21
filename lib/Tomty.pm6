@@ -173,6 +173,18 @@ sub test-run ($dir,$test,%args?) is export {
 
 }
 
+sub array-include-tag ($arr, Str $tag) {
+  my $status = True;
+  for $tag.split(/'+'/) -> $t {
+    unless $arr<> (cont) $t {
+      $status = False;
+      last;
+    }
+  }
+
+  return $status;
+}
+
 sub test-run-all ($dir,%args) is export {
 
   my $verbose-mode = %args<verbose-mode>;
@@ -215,32 +227,36 @@ sub test-run-all ($dir,%args) is export {
   
     }
 
-    my $skip = False;
+    my $is-included = True;
+    my $skip = True;
 
     $i++;
 
     if %args<only> {
 
-      my $keep = False;
-
-      for %args<only>.split(/','/) -> $only-tag {
-        if so $only-tag.subst(/\s/,"",:g) ∈ %macros-state<tag> {
-          $keep = True;
-          last;
-        }
+      for %args<only>.split(/','/).map({.subst(/\s/,"",:g)}) -> $t {
+        $is-included = array-include-tag(%macros-state<tag>,$t);
+        last if $is-included; # only check first occuarance
       }
-
-      $skip = True unless $keep;
+      
     }
 
-    if %args<skip> {
-      for %args<skip>.split(/','/) -> $skip-tag {
-        if %macros-state<tag> && so $skip-tag.subst(/\s/,"",:g) ∈ %macros-state<tag> {
-          $skip = True;
-          last;
-        }
+    # say "inc: $is-included";
+
+    $skip = ! $is-included;
+
+    #say "inc1: $is-included / skip: $skip";
+
+    if $is-included and %args<skip> {
+      #say "HHHH, <{%args<skip>}>";
+      for %args<skip>.split(/','/).map({.subst(/\s/,"",:g)}) -> $t {
+        $is-included = array-include-tag(%macros-state<tag>,$t);
+        last if $is-included; # only check first occuarance
       }
+      $skip = True if $is-included;  
     }
+
+    #say "inc2: $is-included / skip: $skip";
 
     if ! $verbose-mode {
 

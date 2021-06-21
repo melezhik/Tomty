@@ -46,26 +46,26 @@ Tomty test is just a Sparrow6 scenario:
 
     tomty --edit test-meta6-file-exist
 
-    #!perl6
+    #!raku
 
     bash "test -f META6.json"
 
 
 You can write more advanced tests, for example:
 
-    # Check if perl6.org is accessible
+    # Check if raku.org is accessible
 
-    tomty --edit test-perl6-org-alive
+    tomty --edit test-raku-org-alive
 
-    #!perl6
+    #!raku
 
-    http-ok("http://perl6.org");
+    http-ok("https://raku.org");
 
     # Check if META6.json file is a valid json
 
     tomty --edit test-meta6-is-valid-json
 
-    #!perl6
+    #!raku
 
     task-run "meta6 is a valid json", "json-lint";
 
@@ -113,7 +113,7 @@ Use `--lines` flag to print out test source code with line numbers.
 
 # Environments
 
-* Tomty environments are configuration files, written on Perl6 and technically speaking are plain Perl6 Hashes
+* Tomty environments are configuration files, written on Raku and technically speaking are plain Raku Hashes
 
 * Environment configuration files should be placed at `.tomty/conf` directory:
 
@@ -172,10 +172,35 @@ Tomty macros allow to pre-process test scenarios. To embed macros use `=begin to
     )
     =end tomty
 
-Macros could be any Perl6 code, returning `Hash`. The example above set tag=`slow` for slow running tests,
+Macros could be any Raku code, returning `Hash`. The example above set tag=`slow` for slow running tests,
 you can skip test execution by using `--skip` option:
 
     tomty --skip=slow
+
+See also `tags filtering`.
+
+## Tags filtering
+
+Tags filtering allows to run subsets of scenarios using tags as criteria.
+
+### Logical OR
+
+By default logical OR is implied when using comma:
+
+Examples:
+
+    tomty --skip=slow,windows # skip slow OR windows tests
+
+    tomty --only=frontend,bakend # only frontend OR backend test
+
+Use `+` to mimic logical AND:
+
+    tomty --only=database+mysql # execute only mysql database tests
+
+`--skip` and `--only` could be combined to get more sophisticated scenarios:
+
+    tomty --only=database+mysql,skip=window # execute only mysql database tests BUT not for windows OS system
+
 
 ## Profiles
 
@@ -272,25 +297,20 @@ Get log for given test run, useful when running in all tests mode:
 
     tomty --log test-01
 
-* `--skip`
 
-Conditionally skip tagged tests:
+* `--skip` | `--only`
+
+Set tags filters.
+
+Skip tests tagged as `slow`
 
     tomty --skip=slow
 
-You can skip over multiple tags, split by comma:
+Only run tests tagged as `linux`
 
-    tomty --skip=slow,windows # skip slow or windows tests
+    tomty --only=linux
 
-* `--only`
-
-Conditionally run only tagged tests:
-
-    tomty --only=database
-
-You can excute over multiple tags, split by comma:
-
-    tomty --only=database,frontend # execute only database or frontend tests
+See also `tags filtering` for more details on tag filtering.
 
 # Environment variables
 
