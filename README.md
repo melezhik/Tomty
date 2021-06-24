@@ -193,6 +193,8 @@ Examples:
 
     tomty --only=frontend,bakend # only frontend OR backend test
 
+### Logical AND 
+
 Use `+` to mimic logical AND:
 
     tomty --only=database+mysql # execute only mysql database tests
