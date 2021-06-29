@@ -253,11 +253,14 @@ sub test-list-tags ($dir,%args) {
 
   for filter-tests($dir, %args).grep({.<skip> == False}) -> $t {
 
-    my $s = $t<test>;
+    my $s = $t<test> but Colorizable;
+    my $tags-str = "{$t<tags>.perl}" but Colorizable;
 
-    my $tags = $t<tags>;
-
-    say $s, " ", $t<tags> ??  $t<tags>.perl !! "";
+    if %args<color> {
+      say $s.colorize(:fg(green),:mo(bold)), " ", $t<tags> ??  $tags-str.colorize(:fg(cyan),:mo(bold)) !! "";
+    } else {
+      say $s, " ", $t<tags> ?? $tags-str !! "";
+    }
 
   }
 
