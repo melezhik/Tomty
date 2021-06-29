@@ -241,22 +241,16 @@ sub test-run-all ($dir,%args) is export {
       
     }
 
-    # say "inc: $is-included";
-
     $skip = ! $is-included;
 
-    #say "inc1: $is-included / skip: $skip";
-
     if $is-included and %args<skip> {
-      #say "HHHH, <{%args<skip>}>";
+
       for %args<skip>.split(/','/).map({.subst(/\s/,"",:g)}) -> $t {
         $is-included = array-include-tag(%macros-state<tag>,$t);
         last if $is-included; # only check first occuarance
       }
       $skip = True if $is-included;  
     }
-
-    #say "inc2: $is-included / skip: $skip";
 
     if ! $verbose-mode {
 
