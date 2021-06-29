@@ -2,6 +2,7 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+    - implemented tags listing (`--tags`)
     - `color` option now enables SP6_FORMAT_COLOR variable, to make Sparrow reports colorful
     - tags filtering refactoring, `+` (logical AND) support
     - tags filtering improved documentation

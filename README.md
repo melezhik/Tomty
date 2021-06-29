@@ -42,14 +42,13 @@ Tomty - Raku Test Framework.
 
 ## Writing tests
 
-Tomty test is just a Sparrow6 scenario:
+Tomty test is just a Raku scenario:
 
     tomty --edit test-meta6-file-exist
 
     #!raku
 
     bash "test -f META6.json"
-
 
 You can write more advanced tests, for example:
 
@@ -191,7 +190,7 @@ Examples:
 
     tomty --skip=slow,windows # skip slow OR windows tests
 
-    tomty --only=frontend,bakend # only frontend OR backend test
+    tomty --only=frontend,backend # only frontend OR backend test
 
 ### Logical AND 
 
@@ -259,7 +258,7 @@ Run all tests
 
 * `--show-failed`
 
-Show failed tests. Usefull
+Show failed tests
 
 * `--verbose`
 
@@ -313,6 +312,19 @@ Only run tests tagged as `linux`
     tomty --only=linux
 
 See also `tags filtering` for more details on tag filtering.
+
+* `--tags`
+
+Show available tags. Don't run tests. 
+
+You can combine `--tags` with `--only` or `--skip` options.
+
+Examples:
+
+    tomty --tags # list all tests with tags
+
+    tomty --tags --only=foo  # list tests tagged by `foo`
+
 
 # Environment variables
 

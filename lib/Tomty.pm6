@@ -117,6 +117,7 @@ sub tomty-help () is export  {
     tomty --env-set $env      # set current environment
     tomty --env-set           # show current environment
     tomty --env-list          # list available environments
+    tomty --tags              # list available tags
 
   options:
     --env=$env  # run tests for the given environment
@@ -185,23 +186,11 @@ sub array-include-tag ($arr, Str $tag) {
   return $status;
 }
 
-sub test-run-all ($dir,%args) is export {
+sub filter-tests ($dir, %args) {
 
-  my $verbose-mode = %args<verbose-mode>;
+  my @tests;
 
   my $i;
-
-  my $tests-cnt = 0;
-
-  my $failures-cnt = 0;
-
-  mkdir "$dir/.cache";
-
-  my $cnt = test-list($dir).elems;
-
-  my $start-all = time;
-
-  unlink "{reports-dir()}/.failures.log" if "{reports-dir()}/.failures.log".IO ~~ :e;
 
   for test-list($dir) -> $s {
 
@@ -251,6 +240,56 @@ sub test-run-all ($dir,%args) is export {
       }
       $skip = True if $is-included;  
     }
+
+    push @tests, %( skip => $skip, test => $s, tags => %macros-state<tag> );
+
+  } # next test
+
+  return @tests;
+
+}
+
+sub test-list-tags ($dir,%args) {
+
+  for filter-tests($dir, %args).grep({.<skip> == False}) -> $t {
+
+    my $s = $t<test>;
+
+    my $tags = $t<tags>;
+
+    say $s, " ", $t<tags> ??  $t<tags>.perl !! "";
+
+  }
+
+}
+
+sub test-run-all ($dir,%args) is export {
+
+  return test-list-tags($dir,%args) if %args<tags>;
+
+  my $verbose-mode = %args<verbose-mode>;
+
+  my $i;
+
+  my $tests-cnt = 0;
+
+  my $failures-cnt = 0;
+
+  mkdir "$dir/.cache";
+
+  my $cnt = test-list($dir).elems;
+
+  my $start-all = time;
+
+  unlink "{reports-dir()}/.failures.log" if "{reports-dir()}/.failures.log".IO ~~ :e;
+
+  for filter-tests($dir, %args) -> $t {
+
+    $i++;
+
+    my $s = $t<test>;
+
+    my $skip = $t<skip>;
 
     if ! $verbose-mode {
 
@@ -352,7 +391,7 @@ sub test-run-all ($dir,%args) is export {
 
     }
 
-  }
+  } # next test
 
   say "=========================================";
 

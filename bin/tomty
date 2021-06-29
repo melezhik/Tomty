@@ -26,6 +26,7 @@ sub MAIN (
   Bool :$env-set    = False, 
   Bool :$env-edit   = False, 
   Bool :$env-list   = False, 
+  Bool :$tags       = False,
   Bool :$env-cat    = False, 
   Str  :$env,
   Str  :$profile = "default"
@@ -34,7 +35,7 @@ sub MAIN (
 
 {
 
-  my $all-mode = $all || $a || $only || $skip;
+  my $all-mode = $all || $a || $only || $skip || $tags;
 
   %*ENV<SP6_FORMAT_COLOR> = $color;
 
@@ -124,6 +125,7 @@ sub MAIN (
         only  => $only || %profile<only>,
         show-failed => $show-failed,
         env => $env,
+        tags => $tags,
       )
     );
 
