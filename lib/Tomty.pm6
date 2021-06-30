@@ -259,7 +259,7 @@ sub tags-print ($dir, %args) is export {
 
     for $t<tags><> -> $tg {
       if $tg === Any {
-        %tags{"__untagged__"}++
+        %tags{"untagged"}++
       } else {
         %tags{$tg}++
       }
