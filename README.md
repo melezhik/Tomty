@@ -202,6 +202,22 @@ Use `+` to mimic logical AND:
 
     tomty --only=database+mysql,skip=window # execute only mysql database tests BUT not for windows OS system
 
+## List tags
+
+One can list available tags by:
+
+    tomty --list --tags
+
+You can combine `--tags` with `--only` or `--skip` options to _list_ tagged tests.
+
+Examples:
+
+    tomty --tags --only=foo  # list tests tagged by `foo`
+
+    tomty --tags --only=foo+bar  # list tests tagged by `foo` AND `bar`
+
+    tomty --tags --only=foo,bar  # list tests tagged by `foo` OR `bar`
+
 
 ## Profiles
 
@@ -270,7 +286,15 @@ Run in color mode
 
 * `--list`
 
-List tests
+List tests/tags
+
+To list test only:
+
+    tomty --list
+
+To lists tags only:
+
+    tomty --list --tags
 
 * `--noheader`
 
@@ -315,16 +339,13 @@ See also `tags filtering` for more details on tag filtering.
 
 * `--tags`
 
-Show available tags. Don't run tests. 
+Show available tags:
 
-You can combine `--tags` with `--only` or `--skip` options.
+    tomty --list --tags # list all tags
 
-Examples:
+You can combine `--tags` with `--only` or `--skip` options:
 
-    tomty --tags # list all tests with tags
-
-    tomty --tags --only=foo  # list tests tagged by `foo`
-
+    tomty --tags --only=foo+bar  # list tests tagged by `foo` AND `bar`
 
 # Environment variables
 

@@ -59,9 +59,13 @@ sub MAIN (
 
     test-cat("{$*CWD}/.tomty", $thing, %( lines => $lines ));
 
-  } elsif ($list) { # tests list
+  } elsif ($list) { # tests/tags list
 
-    test-list-print("{$*CWD}/.tomty", %( noheader => $noheader ))
+    if $tags {
+      tags-print("{$*CWD}/.tomty", %( color => $color ))
+    } else {
+      test-list-print("{$*CWD}/.tomty", %( noheader => $noheader ))
+    }
 
   } elsif ($help) { # help page
 

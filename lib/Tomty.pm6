@@ -249,12 +249,57 @@ sub filter-tests ($dir, %args) {
 
 }
 
-sub test-list-tags ($dir,%args) {
+sub tags-print ($dir, %args) is export {
 
-  for filter-tests($dir, %args).grep({.<skip> == False}) -> $t {
+  my @t = filter-tests($dir, %()).grep({.<skip> == False});
+
+  my %tags;
+
+  for @t -> $t {
+
+    for $t<tags><> -> $tg {
+      if $tg === Any {
+        %tags{"__untagged__"}++
+      } else {
+        %tags{$tg}++
+      }
+    }
+
+  }
+
+  my $i = 0;
+
+  for %tags.keys.sort -> $tg {
+
+    my $tg-s = $tg but Colorizable;
+    my $tg-cnt = %tags{$tg} but Colorizable;
+
+    if %args<color> {
+      say $tg-s.colorize(:fg(green),:mo(bold)), " ", $tg-cnt.colorize(:fg(cyan),:mo(bold));
+    } else {
+      say $tg-s, " ", $tg-cnt;
+    }
+
+    $i++;
+
+  }
+
+  say "==========";
+  say "[$i] tags";
+
+}
+
+sub list-tests-with-tags ($dir,%args) {
+
+  my @t = filter-tests($dir, %args).grep({.<skip> == False});
+
+  my $i = 0;
+
+  for @t -> $t {
 
     my $s = $t<test> but Colorizable;
     my $tags-str = "{$t<tags>.perl}" but Colorizable;
+    $i++;
 
     if %args<color> {
       say $s.colorize(:fg(green),:mo(bold)), " ", $t<tags> ??  $tags-str.colorize(:fg(cyan),:mo(bold)) !! "";
@@ -264,11 +309,14 @@ sub test-list-tags ($dir,%args) {
 
   }
 
+  say "==========";
+  say "[$i] tests";
+
 }
 
 sub test-run-all ($dir,%args) is export {
 
-  return test-list-tags($dir,%args) if %args<tags>;
+  return list-tests-with-tags($dir,%args) if %args<tags>;
 
   my $verbose-mode = %args<verbose-mode>;
 
