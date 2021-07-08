@@ -105,7 +105,7 @@ sub MAIN (
 
   } elsif ($log && $thing ) {
 
-    test-log($thing);
+    test-log($thing, %(color => $color));
 
   } elsif (!$all-mode && $thing ) {
 
