@@ -128,7 +128,7 @@ sub MAIN (
         skip  => $skip || %profile<skip>, 
         only  => $only || %profile<only>,
         show-failed => $show-failed,
-        env => $env,
+        env => $env || %profile<env>,
         tags => $tags,
       )
     );

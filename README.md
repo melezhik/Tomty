@@ -235,6 +235,7 @@ One can override following command line arguments through a profile:
 
 * `skip`
 * `only`
+* `env`
 
 In the future more arguments will be supported.
 
