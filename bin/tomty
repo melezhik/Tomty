@@ -35,7 +35,9 @@ sub MAIN (
 
 {
 
-  my $all-mode = $all || $a || $only || $skip || $tags;
+  my %profile = read-profile(".tomty",$profile, %( verbose => $verbose ));
+
+  my $all-mode = $all || $a || $only || $skip || $tags || %profile<all> || %profile<only> || %profile<skip> ;
 
   %*ENV<SP6_FORMAT_COLOR> = $color;
 
@@ -118,8 +120,6 @@ sub MAIN (
     );
 
   } elsif ($all-mode) {
-
-    my %profile = read-profile(".tomty",$profile, %( verbose => $verbose ));
 
     test-run-all(
       "{$*CWD}/.tomty", %( 

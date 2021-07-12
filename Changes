@@ -3,6 +3,7 @@ Revision history for Tomty
 {{$NEXT}}
 
     - Respect env in profile
+    - Fix: all/only/skip in profile enables all-mode
 
 0.0.14  2021-07-11T12:57:00Z
 
