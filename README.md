@@ -178,6 +178,14 @@ you can skip test execution by using `--skip` option:
 
 See also `tags filtering`.
 
+Tags could be multiple as well:
+
+    =begin tomty
+    %(
+      tag => [ "flaky", "slow" ]
+    )
+    =end tomty
+    
 ## Tags filtering
 
 Tags filtering allows to run subsets of scenarios using tags as criteria.
