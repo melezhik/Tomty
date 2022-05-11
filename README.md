@@ -8,7 +8,7 @@ Tomty - Raku Test Framework.
 
 # Build Status
 
-[![Build Status](https://travis-ci.org/melezhik/Tomty.svg?branch=master)](https://travis-ci.org/melezhik/Tomty)
+[![SparkyCI](http://sparrowhub.io:2222/project/gh-melezhik-Tomty/badge)](http://sparrowhub.io:2222)
 
 # Usage
 
