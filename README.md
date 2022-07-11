@@ -10,7 +10,7 @@ Tomty - Raku Test Framework.
 
 [![SparkyCI](http://sparrowhub.io:2222/project/gh-melezhik-Tomty/badge)](http://sparrowhub.io:2222)
 
-# Usage
+# Quick start
 
     tomty --edit test-01
 
@@ -118,19 +118,20 @@ Use `--lines` flag to print out test source code with line numbers.
 
 `.tomty/env/config.raku`:
 
-    {
-        dbname => "products",
-        dbhost => "localhost"
-
-    }
+```raku
+{
+    dbname => "products",
+    dbhost => "localhost"
+}
+```
 
 When tomty runs it picks the `.tomty/env/config.raku` and read configuration from it
 variables will be accessible as `config` Hash, inside Tomty scenarios:
 
-
-    my $dbname = config<dbname>;
-    my $dbhost = config<dbhost>;
-
+```raku
+my $dbname = config<dbname>;
+my $dbhost = config<dbhost>;
+```
 
 To define _named_ configuration ( environment ), simply create `.tomty/env/config{$env}.raku` file and refer to it through
 `--env=$env` parameter:
@@ -165,11 +166,13 @@ You print out the list of all environments by using `--env-list` parameters:
 
 Tomty macros allow to pre-process test scenarios. To embed macros use `=begin tomty` .. `=end tomty` syntax:
 
-    =begin tomty
-    %(
-      tag => "slow"
-    )
-    =end tomty
+```raku
+=begin tomty
+%(
+    tag => "slow"
+)
+=end tomty
+```
 
 Macros could be any Raku code, returning `Hash`. The example above set tag=`slow` for slow running tests,
 you can skip test execution by using `--skip` option:
@@ -180,12 +183,14 @@ See also `tags filtering`.
 
 Tags could be multiple as well:
 
-    =begin tomty
-    %(
-      tag => [ "flaky", "slow" ]
-    )
-    =end tomty
-    
+```raku
+=begin tomty
+%(
+    tag => [ "flaky", "slow" ]
+)
+=end tomty
+```
+
 ## Tags filtering
 
 Tags filtering allows to run subsets of scenarios using tags as criteria.
@@ -233,11 +238,13 @@ Tomty profile sets command line arguments for a named profile:
 
     cat .tomty/profile
 
-    %(
-      default => %(
+```raku
+%(
+    default => %(
         skip => "broken"
-      )
     )
+)
+```
 
 One can override following command line arguments through a profile:
 
@@ -251,16 +258,16 @@ A `default` profile sets default command line arguments when `tomty` cli run.
 
 To add more profiles just add more Hash keys and define proper settings:
 
-
-    %(
-      default => %(
+```raku
+%(
+    default => %(
         skip => "broken"
-      ),
-      development => %(
+    ),
+    development => %(
         only => "new-bugs"
-      )
     )
-
+)
+```
 To chose profile use `--profile` option:
 
     tomty --profile development
