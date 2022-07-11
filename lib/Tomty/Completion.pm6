@@ -144,8 +144,8 @@ sub test-list ($dir, $type = 1) {
     for dir($dir) -> $f {
 
       next unless "$f".IO ~~ :f;
-      next unless $f ~~ /\.pl6$/;
-      my $test-name = substr($f.basename,0,($f.basename.chars)-4);
+      next unless $f ~~ /\.raku$/;
+      my $test-name = substr($f.basename,0,($f.basename.chars)-5);
       @list.push($test-name);
 
     }
@@ -172,7 +172,7 @@ sub environment-list ($dir, $type = 1 )  {
 
     if "$dir/current".IO ~~ :e  && "$dir/current".IO.resolve.IO.basename {
 
-      if "$dir/current".IO.resolve.IO.basename ~~ /config\.(.*)\.pl6/ {
+      if "$dir/current".IO.resolve.IO.basename ~~ /config\.(.*)\.raku/ {
         $current = "$0"
       }
 
@@ -181,9 +181,9 @@ sub environment-list ($dir, $type = 1 )  {
     for dir($dir) -> $f {
 
       next unless "$f".IO ~~ :f;
-      next unless $f ~~ /\.pl6$/;
+      next unless $f ~~ /\.raku$/;
 
-      if $f.basename ~~ /config\.(.*)\.pl6/ {
+      if $f.basename ~~ /config\.(.*)\.raku/ {
 
         @list.push("$0");
 

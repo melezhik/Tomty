@@ -116,7 +116,7 @@ Use `--lines` flag to print out test source code with line numbers.
 
 * Environment configuration files should be placed at `.tomty/conf` directory:
 
-`.tomty/env/config.pl6`:
+`.tomty/env/config.raku`:
 
     {
         dbname => "products",
@@ -124,7 +124,7 @@ Use `--lines` flag to print out test source code with line numbers.
 
     }
 
-When tomty runs it picks the `.tomty/env/config.pl6` and read configuration from it
+When tomty runs it picks the `.tomty/env/config.raku` and read configuration from it
 variables will be accessible as `config` Hash, inside Tomty scenarios:
 
 
@@ -132,10 +132,10 @@ variables will be accessible as `config` Hash, inside Tomty scenarios:
     my $dbhost = config<dbhost>;
 
 
-To define _named_ configuration ( environment ), simply create `.tomty/env/config{$env}.pl6` file and refer to it through
+To define _named_ configuration ( environment ), simply create `.tomty/env/config{$env}.raku` file and refer to it through
 `--env=$env` parameter:
 
-    nano .tomty/env/config.prod.pl6
+    nano .tomty/env/config.prod.raku
 
     tomty --env=prod ... other parameters here # will run with production configuration
 

@@ -140,7 +140,7 @@ sub tomty-clean ($dir) is export {
 
 sub test-run ($dir,$test,%args?) is export {
 
-  die "test $test not found" unless "$dir/$test.pl6".IO ~~ :e;
+  die "test $test not found" unless "$dir/$test.raku".IO ~~ :e;
 
   mkdir "$dir/.cache";
 
@@ -150,15 +150,15 @@ sub test-run ($dir,$test,%args?) is export {
 
   if %args<env> {
 
-    $conf-file = %args<env> eq 'default' ?? "$dir/env/config.pl6" !! "$dir/env/config.{%args<env>}.pl6";
+    $conf-file = %args<env> eq 'default' ?? "$dir/env/config.raku" !! "$dir/env/config.{%args<env>}.raku";
 
-  } elsif $current-env eq 'default' &&  "$dir/env/config.pl6".IO ~~ :e {
+  } elsif $current-env eq 'default' &&  "$dir/env/config.raku".IO ~~ :e {
 
-    $conf-file =  "$dir/env/config.pl6";
+    $conf-file =  "$dir/env/config.raku";
 
-  } elsif "$dir/env/config.{$current-env}.pl6".IO ~~ :e  {
+  } elsif "$dir/env/config.{$current-env}.raku".IO ~~ :e  {
 
-    $conf-file = "$dir/env/config.{$current-env}.pl6";
+    $conf-file = "$dir/env/config.{$current-env}.raku";
 
   }
 
@@ -170,7 +170,7 @@ sub test-run ($dir,$test,%args?) is export {
 
   Sparrow6::Task::Repository::Api.new().index-update;
 
-  EVALFILE "$dir/$test.pl6";
+  EVALFILE "$dir/$test.raku";
 
 }
 
@@ -196,7 +196,7 @@ sub filter-tests ($dir, %args) {
 
     my @macros;
 
-    for "$dir/$s.pl6".IO.lines -> $l {
+    for "$dir/$s.raku".IO.lines -> $l {
 
         if $l ~~ /^^ \s* '=begin tomty'/ ^fff^ $l ~~ /^^ \s* '=end tomty'/ {
             push @macros, $l;
@@ -485,8 +485,8 @@ sub test-list ($dir) is export {
     for dir($dir) -> $f {
 
       next unless "$f".IO ~~ :f;
-      next unless $f ~~ /\.pl6$/;
-      my $test-name = substr($f.basename,0,($f.basename.chars)-4);
+      next unless $f ~~ /\.raku$/;
+      my $test-name = substr($f.basename,0,($f.basename.chars)-5);
       @list.push($test-name);
 
     }
@@ -507,8 +507,8 @@ sub test-list-print ($dir, %args?) is export {
 
 sub test-remove ($dir,$test) is export {
 
-  if "$dir/$test.pl6".IO ~~ :e {
-    unlink "$dir/$test.pl6";
+  if "$dir/$test.raku".IO ~~ :e {
+    unlink "$dir/$test.raku";
     say "test $test removed"
   } else {
     say "test $test not found"
@@ -518,11 +518,11 @@ sub test-remove ($dir,$test) is export {
 
 sub test-cat ($dir,$test,%args?) is export {
 
-  if "$dir/$test.pl6".IO ~~ :e {
+  if "$dir/$test.raku".IO ~~ :e {
     say "[test $test]";
     my $i=0;
     
-    for "$dir/$test.pl6".IO.lines -> $l {
+    for "$dir/$test.raku".IO.lines -> $l {
       $i++;
       say %args<lines> ?? "[$i] $l" !! $l;
     }
@@ -536,12 +536,12 @@ sub test-edit ($dir,$test) is export {
 
     die "you should set EDITOR ENV to run editor" unless  %*ENV<EDITOR>;
 
-    unless "$dir/$test.pl6".IO ~~ :e {
-      my $confirm = prompt("$dir/$test.pl6 does not exit, do you want to create it? (type Y to confirm): ");
+    unless "$dir/$test.raku".IO ~~ :e {
+      my $confirm = prompt("$dir/$test.raku does not exit, do you want to create it? (type Y to confirm): ");
       return unless $confirm eq 'Y';
     }
 
-    shell "{%*ENV<EDITOR>} $dir/$test.pl6";
+    shell "{%*ENV<EDITOR>} $dir/$test.raku";
 
 }
 
@@ -563,7 +563,7 @@ sub environment-edit ($dir,$env) is export {
 
     mkdir $dir;
 
-    my $conf-file = ( $env eq 'default' ) ?? "$dir/config.pl6" !! "$dir/config.{$env}.pl6";
+    my $conf-file = ( $env eq 'default' ) ?? "$dir/config.raku" !! "$dir/config.{$env}.raku";
 
     unless $conf-file.IO ~~ :e {
       my $confirm = prompt("$conf-file does not exit, do you want to create it? (type Y to confirm): ");
@@ -587,9 +587,9 @@ sub environment-list ($dir) is export {
     for dir($dir) -> $f {
 
       next unless "$f".IO ~~ :f;
-      next unless $f ~~ /\.pl6$/;
+      next unless $f ~~ /\.raku$/;
 
-      if $f.basename ~~ /config\.(.*)\.pl6/ {
+      if $f.basename ~~ /config\.(.*)\.raku/ {
 
         @list.push("$0");
 
@@ -628,10 +628,10 @@ sub environment-show ($dir) is export {
 
   if "$dir/current".IO ~~ :f {
     say "current environment: ",slurp("$dir/current")
-  } elsif ( "$dir/config.pl6".IO ~~ :f) {
+  } elsif ( "$dir/config.raku".IO ~~ :f) {
     say "current environment: default";
   } else {
-    say "default environment is not set, create default configuration file (.tomty/env/config.pl6)
+    say "default environment is not set, create default configuration file (.tomty/env/config.raku)
 or use tomty --set-env \$env to set default environments"
   }
 }
@@ -641,9 +641,9 @@ sub environment-cat ($dir,$env,%args?) is export {
   my $conf-file;
 
   if $env eq "default" {
-    $conf-file = "$dir/config.pl6"
+    $conf-file = "$dir/config.raku"
   } else {
-    $conf-file = "$dir/config.{$env}.pl6"
+    $conf-file = "$dir/config.{$env}.raku"
   }
 
   if "$conf-file".IO ~~ :e {
