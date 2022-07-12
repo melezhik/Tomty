@@ -2,6 +2,10 @@ Revision history for Tomty
 
 {{$NEXT}}
 
+0.1.15  2022-07-12T11:10:00Z
+
+    - Bump Sparrow6 dependency
+
 0.1.15  2022-07-11T04:20:00Z
 
     - Breaking changes: ".pl6" -> ".raku"
