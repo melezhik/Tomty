@@ -39,7 +39,11 @@ sub MAIN (
 
   my $all-mode = $all || $a || $only || $skip || $tags || %profile<all> || %profile<only> || %profile<skip>;
 
-  %*ENV<SP6_FORMAT_COLOR> = $color;
+
+  if $color == True {
+    %*ENV<SP6_FORMAT_COLOR> = 1
+  }
+
 
   if $init {
 
