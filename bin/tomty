@@ -28,6 +28,7 @@ sub MAIN (
   Bool :$env-list   = False, 
   Bool :$tags       = False,
   Bool :$env-cat    = False, 
+  Bool :$dump-task  = False, 
   Str  :$env,
   Str  :$profile = "default"
 
@@ -44,6 +45,9 @@ sub MAIN (
     %*ENV<SP6_FORMAT_COLOR> = 1
   }
 
+  if $dump-task == True {
+    %*ENV<SP6_DUMP_TASK_CODE> = 1
+  }
 
   if $init {
 

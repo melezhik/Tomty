@@ -296,6 +296,10 @@ Show failed tests
 
 Runs tests in verbose mode, print more details about every test
 
+* `--dump-task`
+
+Dump task code before execution, see SP6_DUMP_TASK_CODE Sparrow documentation
+
 * `--color`
 
 Run in color mode

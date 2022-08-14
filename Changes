@@ -2,7 +2,12 @@ Revision history for Tomty
 
 {{$NEXT}}
 
-0.1.15  2022-07-12T11:10:00Z
+0.1.17  2022-08-13T21:05:00Z
+
+    - Adding `--dump-task` option
+    - More accurate way to handle `--color` option
+
+0.1.16  2022-07-12T11:10:00Z
 
     - Bump Sparrow6 dependency
 
