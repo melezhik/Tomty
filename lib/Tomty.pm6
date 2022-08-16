@@ -168,7 +168,7 @@ sub test-run ($dir,$test,%args?) is export {
     set-config(EVALFILE $conf-file);
   }
 
-  Sparrow6::Task::Repository::Api.new().index-update;
+  Sparrow6::Task::Repository::Api.new().index-update unless %args<no-index-update>;
 
   EVALFILE "$dir/$test.raku";
 

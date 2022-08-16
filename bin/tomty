@@ -5,12 +5,13 @@ use Tomty;
 sub MAIN (
 
   $thing?,
-  Bool :$verbose    = False, 
-  Bool :$all        = False,
-  Bool :$a          = False,
-  Bool :$show-failed  = False,
-  Bool :$color        = False, 
-  Bool :$noheader   = False,
+  Bool :$verbose          = False, 
+  Bool :$all              = False,
+  Bool :$a                = False,
+  Bool :$show-failed      = False,
+  Bool :$color            = False, 
+  Bool :$no-index-update  = False,
+  Bool :$noheader         = False,
   Str  :$skip,
   Str  :$only,
   Bool :$log        = False,
@@ -40,6 +41,7 @@ sub MAIN (
 
   my $all-mode = $all || $a || $only || $skip || $tags || %profile<all> || %profile<only> || %profile<skip>;
 
+  my $no-index-update-mod  = $no-index-update || %profile<no_index_update>;
 
   if $color == True {
     %*ENV<SP6_FORMAT_COLOR> = 1
@@ -123,6 +125,7 @@ sub MAIN (
         "{$*CWD}/.tomty", $thing, %( 
           env => $env, 
           verbose => $verbose,
+          no-index-update => $no-index-update-mod,
           color => $color,
         ) 
     );
@@ -132,6 +135,7 @@ sub MAIN (
     test-run-all(
       "{$*CWD}/.tomty", %( 
         verbose-mode => $verbose,
+        no-index-update => $no-index-update-mod,
         color => $color,   
         skip  => $skip || %profile<skip>, 
         only  => $only || %profile<only>,

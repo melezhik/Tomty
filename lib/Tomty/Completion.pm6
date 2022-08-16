@@ -124,7 +124,7 @@ sub complete () is export {
 
 sub options-list {
 
-  my $list =  "--verbose --completion --clean --color --dump-task --help --log --list --all -a --show-failed --profile --tags --skip --only --remove --cat --lines --edit --env-cat --env-set --env-edit --env-list --noheader";
+  my $list =  "--verbose --completion --clean --color --no-index-update --dump-task --help --log --list --all -a --show-failed --profile --tags --skip --only --remove --cat --lines --edit --env-cat --env-set --env-edit --env-list --noheader";
 
     if %*ENV<TOMTY_COMPLETE_DEBUG> {
 

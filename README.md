@@ -251,6 +251,7 @@ One can override following command line arguments through a profile:
 * `skip`
 * `only`
 * `env`
+* `no-index-update`
 
 In the future more arguments will be supported.
 
@@ -295,6 +296,10 @@ Show failed tests
 * `--verbose`
 
 Runs tests in verbose mode, print more details about every test
+
+* `--no-index-update`
+
+Don't update Sparrow repository index
 
 * `--dump-task`
 
