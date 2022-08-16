@@ -6,7 +6,7 @@
   "build-depends": [
   ],
   "depends": [
-    "Sparrow6:ver<0.0.37+>",
+    "Sparrow6:ver<0.0.38+>",
     "File::Directory::Tree",
     "YAMLish",
     "Colorizable"
@@ -32,5 +32,5 @@
   ],
   "test-depends": [
   ],
-  "version": "0.0.17"
+  "version": "0.0.18"
 }
