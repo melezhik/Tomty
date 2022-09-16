@@ -2,7 +2,7 @@
 
 use v6;
 
-unit module Tomty:ver<0.0.18>;
+unit module Tomty:ver<0.0.19>;
 
 use Sparrow6::Task::Repository;
 
