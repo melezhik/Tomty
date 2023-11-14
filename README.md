@@ -232,6 +232,15 @@ Examples:
     tomty --tags --only=foo,bar  # list tests tagged by `foo` OR `bar`
 
 
+## Filter untagged scenarios
+
+Use special `untagged` keyword to filter untagged scenarios:
+
+```
+tomty --tags --only=untagged  # list all untagged tests
+tomty --only=untagged         # run all untagged tests
+tomty --skip=untagged         # run all but untagged tests
+```
 ## Profiles
 
 Tomty profile sets command line arguments for a named profile:
