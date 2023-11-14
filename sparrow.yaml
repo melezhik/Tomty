@@ -39,4 +39,5 @@ tasks:
       zef install --/test fez
 
       tom --clean
+      cat ~/.fez-config.json | raku -e 'for lines() -> $i { my $j=$i; $j.=subst(%*ENV<FEZ_TOKEN>,"masked") ; say $j }'
       fez upload --unattended
