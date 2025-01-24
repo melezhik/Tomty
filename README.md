@@ -8,7 +8,7 @@ Tomty - Raku Test Framework.
 
 # Build Status
 
-[![SparkyCI](https://ci.sparrowhub.io/project/gh-melezhik-Tomty/badge)](https://ci.sparrowhub.io)
+![SparkyCI](https://sparky.sparrowhub.io/badge/gh-melezhik-Tomty?foo=bar)
 
 # Quick start
 
